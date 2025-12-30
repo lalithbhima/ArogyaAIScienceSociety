@@ -1,0 +1,51 @@
+/* Import Tailwind CSS base styles, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add any global custom styles or overrides here.
+  For example, if you want to ensure the 'Inter' font is applied broadly if not already default:
+*/
+body {
+  font-family: 'Inter', sans-serif; /* Ensure Inter is preferred */
+}
+
+/* Example of a custom utility class you might want to apply globally,
+  though it's often better to use Tailwind's utility-first approach directly in your JSX.
+  .custom-button {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md;
+  }
+  .custom-button:hover {
+    @apply bg-blue-700;
+  }
+*/
+
+/* Styling for scrollbars (optional, for a more modern look) */
+/* Works in WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar for horizontal scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the tracking area */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1; /* Color of the scroll thumb */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1; /* Color of the scroll thumb on hover */
+}
+
+/* For Firefox */
+/* Note: Firefox scrollbar styling is less customizable than WebKit */
+/* You might need to enable experimental features or use simpler properties */
+/* html {
+  scrollbar-width: thin; 
+  scrollbar-color: #c1c1c1 #f1f1f1; 
+} */
+
