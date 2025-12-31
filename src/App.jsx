@@ -1,6 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, BarChart2, Bot, DollarSign, Users, Zap, Heart, Brain, Globe, MessageSquare, CheckCircle, XCircle, Search, Menu, X } from 'lucide-react';
 
+const RevealOnScroll = ({ children, className = '' }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target); // animate once
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`
+        transition-all duration-700 ease-out
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+        ${className}
+      `}
+    >
+      {children}
+    </div>
+  );
+};
+
 // Mock data - replace with actual data from a CMS or API later
 const MOCK_PROJECTS = [
   {
@@ -216,167 +249,179 @@ const HomePage = ({ setCurrentPage }) => {
     <>
       {/* Hero Section */}
       <Section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center" id="home-hero">
-        <div className="py-20 md:py-32">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
-            Advancing Health Equity with <span className="block sm:inline">Artificial Intelligence</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-            ArogyaAI Science Society leverages cutting-edge AI to bring transformative health solutions to underserved communities worldwide.
-          </p>
-          <div className="space-y-4 sm:space-y-0 sm:space-x-4">
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="font-bold py-4 px-10 rounded-lg text-lg text-white
-                        bg-gradient-to-r from-[#22aaff] to-[#23c07e]
-                        shadow-xl hover:shadow-2xl
-                        transition-all duration-300 transform hover:scale-105"
-            >
-              Support Our Mission
-            </button>
-            <button
-              onClick={() => setCurrentPage('work')}
-              className="bg-transparent hover:bg-white hover:text-blue-700 text-white font-bold py-4 px-10 rounded-lg text-lg border-2 border-white transition-all duration-300"
-            >
-              See Our Impact
-            </button>
+        <RevealOnScroll>
+          <div className="py-20 md:py-32">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+              Advancing Health Equity with <span className="block sm:inline">Artificial Intelligence</span>
+            </h1>
+            <p className="text-lg md:text-xl mb-10 max-w-3xl mx-auto">
+              ArogyaAI Science Society leverages cutting-edge AI to bring transformative health solutions to underserved communities worldwide.
+            </p>
+            <div className="space-y-4 sm:space-y-0 sm:space-x-4">
+              <button
+                onClick={() => setCurrentPage('contact')}
+                className="font-bold py-4 px-10 rounded-lg text-lg text-white
+                          bg-gradient-to-r from-[#22aaff] to-[#23c07e]
+                          shadow-xl hover:shadow-2xl
+                          transition-all duration-300 transform hover:scale-105"
+              >
+                Support Our Mission
+              </button>
+              <button
+                onClick={() => setCurrentPage('work')}
+                className="bg-transparent hover:bg-white hover:text-blue-700 text-white font-bold py-4 px-10 rounded-lg text-lg border-2 border-white transition-all duration-300"
+              >
+                See Our Impact
+              </button>
+            </div>
           </div>
-        </div>
+        </RevealOnScroll>
       </Section>
 
       {/* Our Mission Section */}
       <Section id="mission">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Mission: AI for Global Health</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We are dedicated to developing and deploying ethical AI-driven solutions that address critical health challenges in communities with limited access to resources.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Innovation</h3>
-            <p className="text-gray-600">Pioneering AI research and applications for tangible health outcomes.</p>
+        <RevealOnScroll>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Mission: AI for Global Health</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              We are dedicated to developing and deploying ethical AI-driven solutions that address critical health challenges in communities with limited access to resources.
+            </p>
           </div>
-          <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <Globe className="h-12 w-12 text-green-500 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Equity</h3>
-            <p className="text-gray-600">Ensuring fair access to advanced health technologies for all.</p>
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Innovation</h3>
+              <p className="text-gray-600">Pioneering AI research and applications for tangible health outcomes.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <Globe className="h-12 w-12 text-green-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Equity</h3>
+              <p className="text-gray-600">Ensuring fair access to advanced health technologies for all.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <Heart className="h-12 w-12 text-red-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Impact</h3>
+              <p className="text-gray-600">Creating sustainable, positive change in community health and well-being.</p>
+            </div>
           </div>
-          <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <Heart className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Impact</h3>
-            <p className="text-gray-600">Creating sustainable, positive change in community health and well-being.</p>
-          </div>
-        </div>
+        </RevealOnScroll>
       </Section>
 
       {/* Featured Projects Section */}
       <Section id="featured-projects" className="bg-gray-50">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured AI Initiatives</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover how we're applying AI to solve real-world health problems.
-          </p>
-        </div>
-        <div className="grid place-items-center">
-          {MOCK_PROJECTS.slice(0,3).map(project => (
-            <div
-              key={project.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 w-full max-w-md"
-            >
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-56 object-cover"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
-              />
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-                <p className="text-gray-600 text-sm mb-3 flex-grow">{project.description.substring(0,100)}...</p>
-                <div className="mb-3">
-                  {project.tags.map(tag => (
-                    <span key={tag} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full mr-1 mb-1 inline-block">{tag}</span>
-                  ))}
+        <RevealOnScroll>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured AI Initiatives</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover how we're applying AI to solve real-world health problems.
+            </p>
+          </div>
+          <div className="grid place-items-center">
+            {MOCK_PROJECTS.slice(0,3).map(project => (
+              <div
+                key={project.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 w-full max-w-md"
+              >
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-56 object-cover"
+                  onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
+                />
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
+                  <p className="text-gray-600 text-sm mb-3 flex-grow">{project.description.substring(0,100)}...</p>
+                  <div className="mb-3">
+                    {project.tags.map(tag => (
+                      <span key={tag} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full mr-1 mb-1 inline-block">{tag}</span>
+                    ))}
+                  </div>
+                  <button onClick={() => setCurrentPage('work')} className="mt-auto text-blue-600 hover:text-blue-800 font-semibold flex items-center self-start">
+                    Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                  </button>
                 </div>
-                <button onClick={() => setCurrentPage('work')} className="mt-auto text-blue-600 hover:text-blue-800 font-semibold flex items-center self-start">
-                  Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-12">
-            <button onClick={() => setCurrentPage('work')} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-150">
-                Explore All Projects
-            </button>
-        </div>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+              <button onClick={() => setCurrentPage('work')} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-150">
+                  Explore All Projects
+              </button>
+          </div>
+        </RevealOnScroll>
       </Section>
 
       {/* Impact Snapshot Section - Placeholder for advanced visualization */}
       <Section id="impact-snapshot">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Impact at a Glance</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Visualizing the difference we're making, powered by data and AI insights.
-          </p>
-        </div>
-        <div className="bg-white p-6 md:p-10 rounded-xl shadow-xl">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <h4 className="text-4xl font-bold text-blue-600 mb-2">15,000+</h4>
-              <p className="text-gray-700 font-medium">Lives Touched Directly</p>
+        <RevealOnScroll>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Impact at a Glance</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Visualizing the difference we're making, powered by data and AI insights.
+            </p>
+          </div>
+          <div className="bg-white p-6 md:p-10 rounded-xl shadow-xl">
+            <div className="grid md:grid-cols-3 gap-8 text-center">
+              <div>
+                <h4 className="text-4xl font-bold text-blue-600 mb-2">15,000+</h4>
+                <p className="text-gray-700 font-medium">Lives Touched Directly</p>
+              </div>
+              <div>
+                <h4 className="text-4xl font-bold text-green-500 mb-2">30%</h4>
+                <p className="text-gray-700 font-medium">Improvement in Diagnostic Speed (Avg.)</p>
+              </div>
+              <div>
+                <h4 className="text-4xl font-bold text-red-500 mb-2">5 Countries</h4>
+                <p className="text-gray-700 font-medium">Active AI Health Programs</p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-4xl font-bold text-green-500 mb-2">30%</h4>
-              <p className="text-gray-700 font-medium">Improvement in Diagnostic Speed (Avg.)</p>
-            </div>
-            <div>
-              <h4 className="text-4xl font-bold text-red-500 mb-2">5 Countries</h4>
-              <p className="text-gray-700 font-medium">Active AI Health Programs</p>
+            <div className="mt-10">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Resource Allocation Efficiency (Mock Data)</h3>
+              {/* Simple bar chart placeholder - Consider using a library like Recharts or D3 for actual charts */}
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-600 shrink-0">AI Research:</span>
+                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                    <div className="bg-blue-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '70%' }}>70%</div>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-600 shrink-0">Field Deployment:</span>
+                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                    <div className="bg-green-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '85%' }}>85%</div>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-600 shrink-0">Community Training:</span>
+                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                    <div className="bg-yellow-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '60%' }}>60%</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-3 text-center">This is a simplified representation. Detailed financial reports will be available.</p>
             </div>
           </div>
-          <div className="mt-10">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Resource Allocation Efficiency (Mock Data)</h3>
-            {/* Simple bar chart placeholder - Consider using a library like Recharts or D3 for actual charts */}
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <span className="w-32 text-sm text-gray-600 shrink-0">AI Research:</span>
-                <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                  <div className="bg-blue-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '70%' }}>70%</div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <span className="w-32 text-sm text-gray-600 shrink-0">Field Deployment:</span>
-                <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                  <div className="bg-green-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '85%' }}>85%</div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <span className="w-32 text-sm text-gray-600 shrink-0">Community Training:</span>
-                <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                  <div className="bg-yellow-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '60%' }}>60%</div>
-                </div>
-              </div>
-            </div>
-            <p className="text-xs text-gray-500 mt-3 text-center">This is a simplified representation. Detailed financial reports will be available.</p>
-          </div>
-        </div>
+        </RevealOnScroll>
       </Section>
 
       {/* Call to Action Section */}
       <Section id="cta" className="bg-blue-700 text-white">
-        <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Make a Difference?</h2>
-          <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-            Your contribution can fuel life-changing AI innovations for those who need them most. Join us in shaping a healthier, more equitable future.
-          </p>
-          <button
-            onClick={() => setCurrentPage('contact')}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-          >
-            Contact Us to Get Involved
-          </button>
-        </div>
+        <RevealOnScroll>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Make a Difference?</h2>
+            <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+              Your contribution can fuel life-changing AI innovations for those who need them most. Join us in shaping a healthier, more equitable future.
+            </p>
+            <button
+              onClick={() => setCurrentPage('contact')}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            >
+              Contact Us to Get Involved
+            </button>
+          </div>
+        </RevealOnScroll>
       </Section>
     </>
   );
@@ -387,112 +432,136 @@ const AboutUsPage = ({ setCurrentPage }) => {
   return (
     <>
       <Section className="bg-gray-50 pt-24 md:pt-32 text-center" id="about-hero">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">About ArogyaAI Science Society</h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Pioneering ethical AI solutions to create a healthier and more equitable world for underserved communities.
-        </p>
+        <RevealOnScroll>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">About ArogyaAI Science Society</h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Pioneering ethical AI solutions to create a healthier and more equitable world for underserved communities.
+          </p>
+        </RevealOnScroll>
       </Section>
 
       <Section id="our-story">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Our Story & Vision</h2>
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              ArogyaAI Science Society was founded on the belief that advanced technology, particularly Artificial Intelligence, holds immense potential to bridge health disparities. We envision a world where everyone, regardless of their location or economic status, has access to high-quality healthcare insights and solutions.
-            </p>
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              Our journey began with a small team of passionate scientists, doctors, and ethicists who saw the unmet needs in global health and the transformative power of AI. Today, we are a growing organization committed to rigorous research, community-centric deployment, and unwavering ethical standards.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              We focus on creating AI tools that are not only innovative but also accessible, affordable, and adaptable to diverse local contexts. Our core values are innovation, integrity, collaboration, and impact.
-            </p>
+        <RevealOnScroll>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">Our Story & Vision</h2>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                ArogyaAI Science Society was founded on the belief that advanced technology, particularly Artificial Intelligence, holds immense potential to bridge health disparities. We envision a world where everyone, regardless of their location or economic status, has access to high-quality healthcare insights and solutions.
+              </p>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                Our journey began with a small team of passionate students who saw the unmet needs in global health and the transformative power of AI. Today, we are a growing organization committed to rigorous research, community-centric deployment, and unwavering ethical standards.
+              </p>
+              <p className="text-gray-700 leading-relaxed">
+                We focus on creating AI tools that are not only innovative but also accessible, affordable, and adaptable to diverse local contexts. Our core values are innovation, integrity, collaboration, and impact.
+              </p>
+            </div>
+            <div>
+              <img 
+                src="/ourVision.JPG"   
+                alt="Conceptual image representing ArogyaAI's vision" 
+                className="rounded-xl shadow-xl w-full h-auto"
+                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x450/cccccc/ffffff?text=Image+Not+Found"; }}
+              />
+            </div>
           </div>
-          <div>
-            <img 
-              src="https://placehold.co/600x450/85C1E9/ffffff?text=Our+Vision+Concept" 
-              alt="Conceptual image representing ArogyaAI's vision" 
-              className="rounded-xl shadow-xl w-full h-auto"
-              onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x450/cccccc/ffffff?text=Image+Not+Found"; }}
-            />
-          </div>
-        </div>
+        </RevealOnScroll>
       </Section>
 
       <Section id="our-team" className="bg-gray-50">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Meet Our Team
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A focused, student-led team committed to ethical AI and global health equity.
-          </p>
-        </div>
-
-        {/* TEAM MEMBER 1 */}
-        <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
-          <img
-            src="/Lalith.png"   // ← replace with your real image
-            alt="Lalithendra Reddy Bhima"
-            className="w-80 h-96 rounded-lg object-cover shadow-lg"
-          />
-
-          <div className="max-w-2xl text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">
-              Lalithendra Reddy Bhima
-            </h3>
-            <p className="text-[#22aaff] font-medium mb-3">
-              Co-Founder & Co-President & AI and Computer Science Research Lead 
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              (add descripton)
+        <RevealOnScroll>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Meet Our Team
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A focused, student-led team committed to ethical AI and global health equity.
             </p>
           </div>
-        </div>
 
-        {/* TEAM MEMBER 2 */}
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <img
-            src="/Bhavika.png"   // ← replace with your real image
-            alt="Bhavika Bhima"
-            className="w-80 h-96 rounded-lg object-cover shadow-lg"
-          />
+          {/* TEAM MEMBER 1 */}
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
+            <img
+              src="/Lalith.png"   // ← replace with your real image
+              alt="Lalithendra Reddy Bhima"
+              className="w-80 h-96 rounded-lg object-cover shadow-lg"
+            />
 
-          <div className="max-w-2xl text-center md:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">
-              Bhavika Bhima
-            </h3>
-            <p className="text-[#23c07e] font-medium mb-3">
-              Co-Founder & Co-President & Biotechnology Lead
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              (add desccription)
-            </p>
+            <div className="max-w-2xl text-center md:text-left">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                Lalithendra Reddy Bhima
+              </h3>
+              <p className="text-[#22aaff] font-medium mb-3">
+                Co-Founder & Co-President & AI and Computer Science Research Lead 
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Lalithendra Reddy Bhima is a 10th-grade student at Folsom High School and an emerging 
+                mathematics, computer science, and AI researcher focused on socially impactful technology. 
+                He is a Second Prize winner at the NASA Space Apps Challenge, a potential 
+                international (global) nominee for NASA Space Apps, and a Second Prize winner 
+                of the Congressional App Challenge for developing ArogyaAI. His work includes 
+                ongoing research on ImmunoGenAI, which is the predicting and optimizing of immune evasion,
+                 investigations into the metacognitive behavior
+                 of large language models such as ChatGPT, and the development of civicAI tools in 
+                 collaboration with Sacramento County to promote civic education. Through ArogyaAI 
+                 Science Society, he aims to advance accessible, ethical, and education-driven AI for underserved communities.
+              </p>
+            </div>
           </div>
-        </div>
+
+          {/* TEAM MEMBER 2 */}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <img
+              src="/Bhavika.png"   // ← replace with your real image
+              alt="Bhavika Bhima"
+              className="w-80 h-96 rounded-lg object-cover shadow-lg"
+            />
+
+            <div className="max-w-2xl text-center md:text-left">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                Bhavika Bhima
+              </h3>
+              <p className="text-[#23c07e] font-medium mb-3">
+                Co-Founder & Co-President & Biotechnology Lead
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Bhavika Bhima is a 9th-grade student at Folsom High School and an a focus 
+                on applying biological research to real-world health challenges. She is a 
+                Second Prize winner at the NASA Space Apps Challenge and a potential 
+                international (global) nominee, as well as a Second Prize winner of the 
+                Congressional App Challenge. Her current work includes ongoing research 
+                on coronary artery disease (CAD), exploring methods for identifying disease 
+                markers within healthy tissue. She has also served as Treasurer of the National 
+                Junior Honor Society (NJHS), reflecting her leadership and commitment to academic excellence.
+              </p>
+            </div>
+          </div>
+        </RevealOnScroll>
       </Section>
 
 
       <Section id="our-approach">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Approach to AI in Global Health</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-                <Brain className="h-10 w-10 text-blue-600 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Ethical AI by Design</h3>
-                <p className="text-gray-600">We embed ethical considerations, fairness, and transparency into every stage of our AI development lifecycle. <button onClick={() => setCurrentPage('ethics')} className="text-blue-600 hover:underline font-medium">Learn more about our framework.</button></p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-                <Users className="h-10 w-10 text-green-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Community Collaboration</h3>
-                <p className="text-gray-600">We work closely with local communities and healthcare providers to ensure our solutions are culturally appropriate and meet real-world needs.</p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-                <BarChart2 className="h-10 w-10 text-yellow-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Data-Driven Impact</h3>
-                <p className="text-gray-600">We rigorously measure and evaluate the impact of our interventions, using data to continuously improve and scale our solutions.</p>
-            </div>
-        </div>
+        <RevealOnScroll>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Approach to AI in Global Health</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white p-6 rounded-xl shadow-lg">
+                  <Brain className="h-10 w-10 text-blue-600 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Ethical AI by Design</h3>
+                  <p className="text-gray-600">We embed ethical considerations, fairness, and transparency into every stage of our AI development lifecycle. <button onClick={() => setCurrentPage('ethics')} className="text-blue-600 hover:underline font-medium">Learn more about our framework.</button></p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-lg">
+                  <Users className="h-10 w-10 text-green-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Community Collaboration</h3>
+                  <p className="text-gray-600">We work closely with local communities and healthcare providers to ensure our solutions are culturally appropriate and meet real-world needs.</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-lg">
+                  <BarChart2 className="h-10 w-10 text-yellow-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Data-Driven Impact</h3>
+                  <p className="text-gray-600">We rigorously measure and evaluate the impact of our interventions, using data to continuously improve and scale our solutions.</p>
+              </div>
+          </div>
+        </RevealOnScroll>
       </Section>
     </>
   );
@@ -515,82 +584,81 @@ const OurWorkPage = ({ setCurrentPage }) => {
   return (
     <>
       <Section className="bg-blue-50 pt-24 md:pt-32 text-center" id="work-hero">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our AI-Powered Initiatives</h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Explore how ArogyaAI is applying artificial intelligence to create impactful health solutions for communities in need.
-        </p>
+        <RevealOnScroll>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our AI-Powered Initiatives</h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Explore how ArogyaAI is applying artificial intelligence to create impactful health solutions for communities in need.
+          </p>
+        </RevealOnScroll>
       </Section>
 
       <Section id="projects-gallery">
-        <div className="mb-12">
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <div className="relative flex-grow">
-                    <input 
-                        type="text"
-                        placeholder="Search projects..."
-                        aria-label="Search projects"
-                        className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                </div>
-                <select 
-                    aria-label="Filter projects by category"
-                    className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
-                    value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                >
-                    <option value="">All Categories</option>
-                    {allTags.map(tag => <option key={tag} value={tag}>{tag}</option>)}
-                </select>
-            </div>
-        </div>
-
-        {filteredProjects.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 group">
-                <div className="relative overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-semibold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300">{project.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 flex-grow">{project.description}</p>
-                  <div className="mb-4">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full mr-1 mb-1 inline-block group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors duration-300">{tag}</span>
-                    ))}
+        <RevealOnScroll>
+          <div className="mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                  <div className="relative flex-grow">
+                      <input 
+                          type="text"
+                          placeholder="Search projects..."
+                          aria-label="Search projects"
+                          className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   </div>
-                  <p className="text-green-600 font-semibold text-sm mb-4">Impact Highlight: <span className="font-normal text-gray-700">{project.impact}</span></p>
-                  <button 
-                    onClick={() => {
-                        // In a real app, you would navigate to a detailed project page
-                        // For now, an alert is used as a placeholder.
-                        // setCurrentPage(`project/${project.id}`) or similar logic would be used with a router.
-                        alert(`Learn more about ${project.title}. \n(Navigation to full project page for ID ${project.id} not implemented in this demo.)`);
-                    }}
-                    className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105 flex items-center justify-center"
+                  <select 
+                      aria-label="Filter projects by category"
+                      className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+                      value={selectedTag}
+                      onChange={(e) => setSelectedTag(e.target.value)}
                   >
-                    Learn More <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
-                </div>
+                      <option value="">All Categories</option>
+                      {allTags.map(tag => <option key={tag} value={tag}>{tag}</option>)}
+                  </select>
               </div>
-            ))}
           </div>
-        ) : (
-            <div className="text-center py-12">
-                <Search size={48} className="mx-auto text-gray-400 mb-4" />
-                <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Projects Found</h3>
-                <p className="text-gray-500">Try adjusting your search terms or selected category.</p>
+
+          {filteredProjects.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+              {filteredProjects.map(project => (
+                <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 group">
+                  <div className="relative overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+                  </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300">{project.title}</h3>
+                    <p className="text-gray-600 text-sm mb-4 flex-grow">{project.description}</p>
+                    <div className="mb-4">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full mr-1 mb-1 inline-block group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors duration-300">{tag}</span>
+                      ))}
+                    </div>
+                    <p className="text-green-600 font-semibold text-sm mb-4">Impact Highlight: <span className="font-normal text-gray-700">{project.impact}</span></p>
+                    <button 
+                      onClick={() => window.open('https://github.com/lalithbhima/arogyaAI', '_blank')}
+                      className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105 flex items-center justify-center"
+                    >
+                      Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-        )}
+          ) : (
+              <div className="text-center py-12">
+                  <Search size={48} className="mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Projects Found</h3>
+                  <p className="text-gray-500">Try adjusting your search terms or selected category.</p>
+              </div>
+          )}
+        </RevealOnScroll>
       </Section>
     </>
   );
@@ -602,58 +670,62 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
   return (
     <>
       <Section className="bg-green-50 pt-24 md:pt-32 text-center" id="involved-hero">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get Involved & Make an Impact</h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Your support, skills, and voice can help us bring AI-driven health solutions to more communities. Join us in our mission.
-        </p>
+        <RevealOnScroll>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get Involved & Make an Impact</h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Your support, skills, and voice can help us bring AI-driven health solutions to more communities. Join us in our mission.
+          </p>
+        </RevealOnScroll>
       </Section>
 
       <Section id="ways-to-contribute">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Volunteer Card (Placeholder) */}
-          <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
-            <Users className="h-16 w-16 text-blue-500 mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">Volunteer Your Skills</h3>
-            <p className="text-gray-600 mb-6 flex-grow">Are you an AI expert, healthcare professional, data scientist, or passionate individual? We welcome volunteers to contribute their expertise. (More info coming soon!)</p>
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="mt-auto w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
-            >
-              Express Interest
-            </button>
-          </div>
+        <RevealOnScroll>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Volunteer Card (Placeholder) */}
+            <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <Users className="h-16 w-16 text-blue-500 mb-6" />
+              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Volunteer Your Skills</h3>
+              <p className="text-gray-600 mb-6 flex-grow">Are you an AI expert, healthcare professional, data scientist, or passionate individual? We welcome volunteers to contribute their expertise. (More info coming soon!)</p>
+              <button
+                onClick={() => setCurrentPage('contact')}
+                className="mt-auto w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
+              >
+                Express Interest
+              </button>
+            </div>
 
-          {/* Partner Card (Placeholder) */}
-          <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
-            <Zap className="h-16 w-16 text-yellow-500 mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">Partner With Us</h3>
-            <p className="text-gray-600 mb-6 flex-grow">We collaborate with organizations, institutions, and corporations to amplify our impact. Let's explore partnership opportunities. (More info coming soon!)</p>
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="mt-auto w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
-            >
-              Discuss Partnership
-            </button>
+            {/* Partner Card (Placeholder) */}
+            <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <Zap className="h-16 w-16 text-yellow-500 mb-6" />
+              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Partner With Us</h3>
+              <p className="text-gray-600 mb-6 flex-grow">We collaborate with organizations, institutions, and corporations to amplify our impact. Let's explore partnership opportunities. (More info coming soon!)</p>
+              <button
+                onClick={() => setCurrentPage('contact')}
+                className="mt-auto w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
+              >
+                Discuss Partnership
+              </button>
+            </div>
+            {/* Support Our Cause Card */}
+            <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <Heart className="h-16 w-16 text-red-500 mb-6" />
+              <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+                Help Support Our Cause
+              </h3>
+              <p className="text-gray-600 mb-6 flex-grow">
+                Support our mission by spreading awareness, help contribute to our cause, connecting us with communities,
+                educators, or healthcare leaders, or helping amplify our impact through outreach
+                and advocacy.
+              </p>
+              <button
+                onClick={() => setCurrentPage('contact')}
+                className="mt-auto w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
+              >
+                Help Support
+              </button>
+            </div>
           </div>
-          {/* Support Our Cause Card */}
-          <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
-            <Heart className="h-16 w-16 text-red-500 mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-              Help Support Our Cause
-            </h3>
-            <p className="text-gray-600 mb-6 flex-grow">
-              Support our mission by spreading awareness, help contribute to our cause, connecting us with communities,
-              educators, or healthcare leaders, or helping amplify our impact through outreach
-              and advocacy.
-            </p>
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="mt-auto w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
-            >
-              Help Support
-            </button>
-          </div>
-        </div>
+        </RevealOnScroll>
       </Section>
     </>
   );
@@ -664,68 +736,74 @@ const EthicalAIPage = ({ setCurrentPage }) => {
   return (
     <>
       <Section className="bg-indigo-50 pt-24 md:pt-32 text-center" id="ethics-hero">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our Commitment to Ethical AI</h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          At ArogyaAI, responsible innovation is paramount. We are dedicated to developing and deploying AI that is fair, transparent, accountable, and beneficial to all.
-        </p>
+        <RevealOnScroll>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our Commitment to Ethical AI</h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            At ArogyaAI, responsible innovation is paramount. We are dedicated to developing and deploying AI that is fair, transparent, accountable, and beneficial to all.
+          </p>
+        </RevealOnScroll>
       </Section>
 
       <Section id="framework-overview">
-        <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Ethical AI Framework</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Guiding principles that underpin all our AI initiatives.
-            </p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Card 1: Fairness */}
-            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CheckCircle className="h-10 w-10 text-green-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Fairness & Non-Discrimination</h3>
-                <p className="text-gray-600">We actively work to identify and mitigate biases in our data and algorithms to ensure equitable outcomes for all demographic groups.</p>
-            </div>
-            {/* Card 2: Transparency */}
-            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Search className="h-10 w-10 text-blue-500 mb-3"/> {/* Icon changed for visual variety */}
-                <h3 className="text-xl font-semibold mb-2">Transparency & Explainability</h3>
-                <p className="text-gray-600">We strive to make our AI systems understandable, providing insights into how decisions are made, especially in critical healthcare applications.</p>
-            </div>
-            {/* Card 3: Accountability */}
-            <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Users className="h-10 w-10 text-yellow-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Human Oversight & Accountability</h3>
-                <p className="text-gray-600">Our AI tools are designed to augment human expertise, not replace it. We maintain clear lines of accountability for AI system performance and impact.</p>
-            </div>
-            {/* Card 4: Privacy */}
-             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Zap className="h-10 w-10 text-purple-500 mb-3"/> {/* Icon changed for visual variety */}
-                <h3 className="text-xl font-semibold mb-2">Data Privacy & Security</h3>
-                <p className="text-gray-600">Protecting sensitive health data is a top priority. We adhere to stringent data governance and security protocols, complying with relevant regulations.</p>
-            </div>
-            {/* Card 5: Beneficence */}
-             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Globe className="h-10 w-10 text-red-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Beneficence & Societal Well-being</h3>
-                <p className="text-gray-600">Our primary goal is to use AI to create positive societal impact, focusing on projects that genuinely improve health and well-being in underserved communities.</p>
-            </div>
-            {/* Card 6: Engagement */}
-             <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <MessageSquare className="h-10 w-10 text-teal-500 mb-3"/>
-                <h3 className="text-xl font-semibold mb-2">Community Engagement</h3>
-                <p className="text-gray-600">We engage with communities to understand their needs and concerns, ensuring our AI solutions are developed and deployed collaboratively and respectfully.</p>
-            </div>
-        </div>
+        <RevealOnScroll>
+          <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Ethical AI Framework</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Guiding principles that underpin all our AI initiatives.
+              </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Card 1: Fairness */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <CheckCircle className="h-10 w-10 text-green-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Fairness & Non-Discrimination</h3>
+                  <p className="text-gray-600">We actively work to identify and mitigate biases in our data and algorithms to ensure equitable outcomes for all demographic groups.</p>
+              </div>
+              {/* Card 2: Transparency */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <Search className="h-10 w-10 text-blue-500 mb-3"/> {/* Icon changed for visual variety */}
+                  <h3 className="text-xl font-semibold mb-2">Transparency & Explainability</h3>
+                  <p className="text-gray-600">We strive to make our AI systems understandable, providing insights into how decisions are made, especially in critical healthcare applications.</p>
+              </div>
+              {/* Card 3: Accountability */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <Users className="h-10 w-10 text-yellow-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Human Oversight & Accountability</h3>
+                  <p className="text-gray-600">Our AI tools are designed to augment human expertise, not replace it. We maintain clear lines of accountability for AI system performance and impact.</p>
+              </div>
+              {/* Card 4: Privacy */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <Zap className="h-10 w-10 text-purple-500 mb-3"/> {/* Icon changed for visual variety */}
+                  <h3 className="text-xl font-semibold mb-2">Data Privacy & Security</h3>
+                  <p className="text-gray-600">Protecting sensitive health data is a top priority. We adhere to stringent data governance and security protocols, complying with relevant regulations.</p>
+              </div>
+              {/* Card 5: Beneficence */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <Globe className="h-10 w-10 text-red-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Beneficence & Societal Well-being</h3>
+                  <p className="text-gray-600">Our primary goal is to use AI to create positive societal impact, focusing on projects that genuinely improve health and well-being in underserved communities.</p>
+              </div>
+              {/* Card 6: Engagement */}
+              <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <MessageSquare className="h-10 w-10 text-teal-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Community Engagement</h3>
+                  <p className="text-gray-600">We engage with communities to understand their needs and concerns, ensuring our AI solutions are developed and deployed collaboratively and respectfully.</p>
+              </div>
+          </div>
+        </RevealOnScroll>
       </Section>
       <Section id="ethics-cta" className="bg-gray-100">
-        <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Learn More or Get Involved</h2>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-                We believe in open discussion about the ethical implications of AI. If you have questions, insights, or wish to collaborate on ethical AI practices, please reach out.
-            </p>
-            <button onClick={() => setCurrentPage('contact')} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md">
-                Contact Our Ethics Team
-            </button>
-        </div>
+        <RevealOnScroll>
+          <div className="text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Learn More or Get Involved</h2>
+              <p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+                  We believe in open discussion about the ethical implications of AI. If you have questions, insights, or wish to collaborate on ethical AI practices, please reach out.
+              </p>
+              <button onClick={() => setCurrentPage('contact')} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md">
+                  Contact Our Ethics Team
+              </button>
+          </div>
+        </RevealOnScroll>
       </Section>
     </>
   );
@@ -797,82 +875,86 @@ const ContactPage = ({ setCurrentPage }) => {
   return (
     <>
       <Section className="bg-gray-50 pt-24 md:pt-32 text-center" id="contact-hero">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get in Touch</h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          We'd love to hear from you. Whether you have a question, a partnership, proposal, or want to learn more about our work, please reach out.
-        </p>
+        <RevealOnScroll>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get in Touch</h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            We'd love to hear from you. Whether you have a question, a partnership, proposal, or want to learn more about our work, please reach out.
+          </p>
+        </RevealOnScroll>
       </Section>
 
       <Section id="contact-details">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Contact Form */}
-          <div className="bg-white p-8 rounded-xl shadow-xl">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Send Us a Message</h2>
-            <form onSubmit={handleContactSubmit} className="space-y-5" noValidate>
-              <div>
-                <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                <input type="text" name="name" id="contact-name" autoComplete="name" value={contactForm.name} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.name ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
-                {contactErrors.name && <p className="text-red-500 text-sm mt-1">{contactErrors.name}</p>}
-              </div>
-              <div>
-                <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input type="email" name="email" id="contact-email" autoComplete="email" value={contactForm.email} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.email ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
-                {contactErrors.email && <p className="text-red-500 text-sm mt-1">{contactErrors.email}</p>}
-              </div>
-              <div>
-                <label htmlFor="contact-subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                <input type="text" name="subject" id="contact-subject" value={contactForm.subject} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.subject ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
-                {contactErrors.subject && <p className="text-red-500 text-sm mt-1">{contactErrors.subject}</p>}
-              </div>
-              <div>
-                <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea name="message" id="contact-message" value={contactForm.message} onChange={handleContactChange} rows="5" className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.message ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`}></textarea>
-                {contactErrors.message && <p className="text-red-500 text-sm mt-1">{contactErrors.message}</p>}
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  disabled={formStatus === 'sending'}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
-                </button>
-              </div>
-              {formStatus === 'sent' && <p className="text-green-600 flex items-center mt-3"><CheckCircle className="mr-2 h-5 w-5"/> Message sent successfully! We'll be in touch soon.</p>}
-              {formStatus === 'error' && <p className="text-red-600 flex items-center mt-3"><XCircle className="mr-2 h-5 w-5"/> An error occurred. Please try again later or email us directly.</p>}
-            </form>
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-8 mt-8 md:mt-0">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><MessageSquare className="mr-2 h-5 w-5 text-blue-600"/> Email Us</h3>
-              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:lalithendrareddy.bhima@gmail.com">lalithendrareddy.bhima@gmail.com</a></p>
-              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:bhavika.bhima@gmail.com">bhavika.bhima@gmail.com</a></p>
-
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Users className="mr-2 h-5 w-5 text-blue-600"/> Follow Us</h3>
-              <div className="flex space-x-4 pl-7">
-                <a
-                  href="https://www.youtube.com/@Lalith_B"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="ArogyaAI on YouTube"
-                  className="text-gray-500 hover:text-red-600 transition-colors"
-                >
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    className="h-6 w-6"
+        <RevealOnScroll>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Contact Form */}
+            <div className="bg-white p-8 rounded-xl shadow-xl">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6">Send Us a Message</h2>
+              <form onSubmit={handleContactSubmit} className="space-y-5" noValidate>
+                <div>
+                  <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <input type="text" name="name" id="contact-name" autoComplete="name" value={contactForm.name} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.name ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
+                  {contactErrors.name && <p className="text-red-500 text-sm mt-1">{contactErrors.name}</p>}
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  <input type="email" name="email" id="contact-email" autoComplete="email" value={contactForm.email} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.email ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
+                  {contactErrors.email && <p className="text-red-500 text-sm mt-1">{contactErrors.email}</p>}
+                </div>
+                <div>
+                  <label htmlFor="contact-subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <input type="text" name="subject" id="contact-subject" value={contactForm.subject} onChange={handleContactChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.subject ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`} />
+                  {contactErrors.subject && <p className="text-red-500 text-sm mt-1">{contactErrors.subject}</p>}
+                </div>
+                <div>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <textarea name="message" id="contact-message" value={contactForm.message} onChange={handleContactChange} rows="5" className={`w-full p-3 border rounded-lg focus:ring-2 ${contactErrors.message ? 'border-red-500 focus:ring-red-500':'border-gray-300 focus:ring-blue-500'}`}></textarea>
+                  {contactErrors.message && <p className="text-red-500 text-sm mt-1">{contactErrors.message}</p>}
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    disabled={formStatus === 'sending'}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <path d="M23.498 6.186a2.958 2.958 0 0 0-2.08-2.09C19.72 3.5 12 3.5 12 3.5s-7.72 0-9.418.596a2.958 2.958 0 0 0-2.08 2.09A30.02 30.02 0 0 0 0 12a30.02 30.02 0 0 0 .502 5.814 2.958 2.958 0 0 0 2.08 2.09C4.28 20.5 12 20.5 12 20.5s7.72 0 9.418-.596a2.958 2.958 0 0 0 2.08-2.09A30.02 30.02 0 0 0 24 12a30.02 30.02 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
-                  </svg>
-                </a>
+                    {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                  </button>
+                </div>
+                {formStatus === 'sent' && <p className="text-green-600 flex items-center mt-3"><CheckCircle className="mr-2 h-5 w-5"/> Message sent successfully! We'll be in touch soon.</p>}
+                {formStatus === 'error' && <p className="text-red-600 flex items-center mt-3"><XCircle className="mr-2 h-5 w-5"/> An error occurred. Please try again later or email us directly.</p>}
+              </form>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-8 mt-8 md:mt-0">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><MessageSquare className="mr-2 h-5 w-5 text-blue-600"/> Email Us</h3>
+                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:lalithendrareddy.bhima@gmail.com">lalithendrareddy.bhima@gmail.com</a></p>
+                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:bhavika.bhima@gmail.com">bhavika.bhima@gmail.com</a></p>
+
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Users className="mr-2 h-5 w-5 text-blue-600"/> Follow Us</h3>
+                <div className="flex space-x-4 pl-7">
+                  <a
+                    href="https://www.youtube.com/@Lalith_B"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="ArogyaAI on YouTube"
+                    className="text-gray-500 hover:text-red-600 transition-colors"
+                  >
+                    <svg
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6"
+                    >
+                      <path d="M23.498 6.186a2.958 2.958 0 0 0-2.08-2.09C19.72 3.5 12 3.5 12 3.5s-7.72 0-9.418.596a2.958 2.958 0 0 0-2.08 2.09A30.02 30.02 0 0 0 0 12a30.02 30.02 0 0 0 .502 5.814 2.958 2.958 0 0 0 2.08 2.09C4.28 20.5 12 20.5 12 20.5s7.72 0 9.418-.596a2.958 2.958 0 0 0 2.08-2.09A30.02 30.02 0 0 0 24 12a30.02 30.02 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </RevealOnScroll>
       </Section>
     </>
   );
