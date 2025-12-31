@@ -5,37 +5,13 @@ import { ArrowRight, BarChart2, Bot, DollarSign, Users, Zap, Heart, Brain, Globe
 const MOCK_PROJECTS = [
   {
     id: 1,
-    title: "AI-Powered Early Disease Detection in Rural Areas",
-    description: "Utilizing machine learning models on mobile devices to assist healthcare workers in identifying early signs of common diseases, improving timely intervention.",
-    impact: "Screened 10,000+ individuals, leading to a 25% increase in early diagnosis for treatable conditions.",
-    tags: ["Healthcare", "AI/ML", "Rural Development"],
-    image: "https://placehold.co/600x400/3498db/ffffff?text=AI+Disease+Detection",
-    learnMoreLink: "/our-work/project-1"
-  },
-  {
-    id: 2,
-    title: "Predictive Analytics for Optimizing Medical Supply Chains",
-    description: "Employing AI to forecast demand for essential medicines and supplies in underserved regions, reducing shortages and waste.",
-    impact: "Reduced stockouts by 40% in pilot regions, ensuring critical supplies are available when needed.",
-    tags: ["Logistics", "AI Analytics", "Supply Chain"],
-    image: "https://placehold.co/600x400/2ecc71/ffffff?text=AI+Supply+Chain",
+    title: "ArogyaAI",
+    description: "An innovative, AI-powered health app to optimize accessible global wellness.",
+    impact: "Improved early health awareness, preventive guidance, and AI-driven health education for students and families, with a focus on underserved and low-resource communities.",
+    tags: ["Health Education", "Healthcare AI", "Global Wellness"],
+    image: "https://placehold.co/600x400/2ecc71/ffffff?text=ArogyaAI+App",
     learnMoreLink: "/our-work/project-2"
   },
-  {
-    id: 3,
-    title: "AI Chatbot for Mental Health Support",
-    description: "Developing an accessible, anonymous AI chatbot to provide initial mental health support and resources, particularly for youth in low-resource settings.",
-    impact: "Provided support to 5,000+ users, with 70% reporting reduced feelings of isolation.",
-    tags: ["Mental Health", "AI Chatbot", "Youth Support"],
-    image: "https://placehold.co/600x400/e74c3c/ffffff?text=AI+Mental+Health",
-    learnMoreLink: "/our-work/project-3"
-  }
-];
-
-const MOCK_TEAM_MEMBERS = [
-  { id: 1, name: "Dr. Anya Sharma", role: "Founder & Lead AI Ethicist", image: "https://placehold.co/300x300/5DADE2/ffffff?text=Dr.+Anya+S." },
-  { id: 2, name: "Rajiv Patel", role: "Head of AI Development", image: "https://placehold.co/300x300/F5B041/ffffff?text=Rajiv+P." },
-  { id: 3, name: "Maria Santos", role: "Community Outreach Director", image: "https://placehold.co/300x300/AF7AC5/ffffff?text=Maria+S." },
 ];
 
 // Helper component for consistent section styling
@@ -69,9 +45,18 @@ const Header = ({ setCurrentPage, currentPage }) => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-20">
-          <div className="flex items-center cursor-pointer" onClick={() => handleNavClick('home')}>
-            <Brain className="h-8 w-8 text-blue-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-800">Arogya<span className="text-blue-600">AI</span></h1>
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => handleNavClick('home')}
+          >
+            <img
+              src="/logo.png"
+              alt="ArogyaAI Logo"
+              className="h-16 w-16 object-contain"
+              />
+            <h1 className="text-2xl font-extrabold text-[#15335d]">
+              Arogya<span className="text-[#23c07e]">AI</span> Science Society
+            </h1>
           </div>
           <nav className="hidden md:flex space-x-4 lg:space-x-6">
             {navLinks.map(link => (
@@ -85,14 +70,6 @@ const Header = ({ setCurrentPage, currentPage }) => {
               </button>
             ))}
           </nav>
-          <div className="hidden md:block">
-            <button
-              onClick={() => handleNavClick('donate')}
-              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105 flex items-center"
-            >
-              <DollarSign className="h-5 w-5 mr-2" /> Donate Now
-            </button>
-          </div>
           <div className="md:hidden">
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 hover:text-blue-600 focus:outline-none">
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -114,12 +91,6 @@ const Header = ({ setCurrentPage, currentPage }) => {
                 {link.name}
               </button>
             ))}
-            <button
-              onClick={() => handleNavClick('donate')}
-              className="w-full mt-3 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md flex items-center justify-center"
-            >
-              <DollarSign className="h-5 w-5 mr-2" /> Donate Now
-            </button>
           </nav>
         </div>
       )}
@@ -129,6 +100,9 @@ const Header = ({ setCurrentPage, currentPage }) => {
 
 // Footer Component
 const Footer = ({ setCurrentPage }) => {
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState('');
+
   return (
     <footer className="bg-gray-800 text-gray-300">
       <Section className="py-16">
@@ -137,9 +111,21 @@ const Footer = ({ setCurrentPage }) => {
             <h3 className="text-xl font-semibold text-white mb-4">ArogyaAI Science Society</h3>
             <p className="text-sm mb-4">Empowering underserved communities through ethical AI and scientific innovation for lasting health and well-being.</p>
             <div className="flex space-x-4">
-              {/* Add social media icons here, e.g., using lucide-react or SVGs */}
-              <a href="#" aria-label="Twitter" className="hover:text-blue-400"><MessageSquare size={20}/></a> {/* Placeholder, replace with actual icon/link */}
-              <a href="#" aria-label="LinkedIn" className="hover:text-blue-400"><Users size={20}/></a> {/* Placeholder, replace with actual icon/link */}
+              <button
+                onClick={() => setCurrentPage('contact')}
+                aria-label="Contact Us"
+                className="hover:text-blue-400 transition-colors"
+              >
+                <MessageSquare size={20} />
+              </button>
+
+              <button
+                onClick={() => setCurrentPage('contact')}
+                aria-label="Contact Us"
+                className="hover:text-blue-400 transition-colors"
+              >
+                <Users size={20} />
+              </button>
             </div>
           </div>
           <div>
@@ -147,7 +133,6 @@ const Footer = ({ setCurrentPage }) => {
             <ul className="space-y-2">
               <li><button onClick={() => setCurrentPage('about')} className="hover:text-blue-400">About Us</button></li>
               <li><button onClick={() => setCurrentPage('work')} className="hover:text-blue-400">Our Work</button></li>
-              <li><button onClick={() => setCurrentPage('donate')} className="hover:text-blue-400">Donate</button></li>
               <li><button onClick={() => setCurrentPage('contact')} className="hover:text-blue-400">Contact</button></li>
             </ul>
           </div>
@@ -162,15 +147,63 @@ const Footer = ({ setCurrentPage }) => {
           <div>
             <h4 className="text-lg font-semibold text-white mb-4">Stay Updated</h4>
             <p className="text-sm mb-3">Subscribe to our newsletter for the latest updates.</p>
-            <form className="flex">
-              <input type="email" placeholder="Your Email" aria-label="Your Email for Newsletter" className="w-full px-3 py-2 rounded-l-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md font-semibold">Go</button>
-            </form>
+              <form
+                className="flex"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setNewsletterStatus('Submitting...');
+
+                  try {
+                    await fetch(
+                      'https://script.google.com/macros/s/AKfycbxJfFvlmIxMoASDo_qeoqoJfQpOIwDemL5H5TnXTLyNRk7Qnv4gc2s9eYx296_jLMNRYQ/exec',
+                      {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          type: 'newsletter',
+                          email: newsletterEmail,
+                          source: 'footer'
+                        })
+                      }
+                    );
+
+                    // If fetch does not throw, assume success
+                    setNewsletterStatus('✅ Subscribed!');
+                    setNewsletterEmail('');
+                  } catch (err) {
+                    setNewsletterStatus('❌ Error. Try later.');
+                  }
+                }}
+              >
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Your Email"
+                  aria-label="Your Email for Newsletter"
+                  className="w-full px-3 py-2 rounded-l-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md font-semibold"
+                >
+                  Go
+                </button>
+              </form>
+
+              {newsletterStatus && (
+                <p className="text-xs mt-2 text-gray-400">{newsletterStatus}</p>
+              )}
           </div>
         </div>
         <div className="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} ArogyaAI Science Society. All rights reserved.</p>
           <p className="mt-1">Designed with <Heart className="inline h-4 w-4 text-red-500" /> for a healthier future.</p>
+          <p className="mt-2 text-gray-400 text-xs">
+            Founded by Lalithendra Reddy Bhima &amp; Bhavika Bhima
+          </p>
         </div>
       </Section>
     </footer>
@@ -192,8 +225,11 @@ const HomePage = ({ setCurrentPage }) => {
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4">
             <button
-              onClick={() => setCurrentPage('donate')}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              onClick={() => setCurrentPage('contact')}
+              className="font-bold py-4 px-10 rounded-lg text-lg text-white
+                        bg-gradient-to-r from-[#22aaff] to-[#23c07e]
+                        shadow-xl hover:shadow-2xl
+                        transition-all duration-300 transform hover:scale-105"
             >
               Support Our Mission
             </button>
@@ -242,9 +278,12 @@ const HomePage = ({ setCurrentPage }) => {
             Discover how we're applying AI to solve real-world health problems.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid place-items-center">
           {MOCK_PROJECTS.slice(0,3).map(project => (
-            <div key={project.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
+            <div
+              key={project.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 w-full max-w-md"
+            >
               <img 
                 src={project.image} 
                 alt={project.title} 
@@ -332,10 +371,10 @@ const HomePage = ({ setCurrentPage }) => {
             Your contribution can fuel life-changing AI innovations for those who need them most. Join us in shaping a healthier, more equitable future.
           </p>
           <button
-            onClick={() => setCurrentPage('donate')}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            onClick={() => setCurrentPage('contact')}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
-            Donate Today & Empower Change
+            Contact Us to Get Involved
           </button>
         </div>
       </Section>
@@ -380,27 +419,58 @@ const AboutUsPage = ({ setCurrentPage }) => {
       </Section>
 
       <Section id="our-team" className="bg-gray-50">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Meet Our Core Team</h2>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Meet Our Team
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A dedicated group of experts driving our mission forward. (Placeholder Team)
+            A focused, student-led team committed to ethical AI and global health equity.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MOCK_TEAM_MEMBERS.map(member => (
-            <div key={member.id} className="bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
-              <img 
-                src={member.image} 
-                alt={`Portrait of ${member.name}`} 
-                className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/300x300/cccccc/ffffff?text=Person"; }}
-              />
-              <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
-              <p className="text-blue-600 font-medium">{member.role}</p>
-            </div>
-          ))}
+
+        {/* TEAM MEMBER 1 */}
+        <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
+          <img
+            src="/Lalith.png"   // ← replace with your real image
+            alt="Lalithendra Reddy Bhima"
+            className="w-80 h-96 rounded-lg object-cover shadow-lg"
+          />
+
+          <div className="max-w-2xl text-center md:text-left">
+            <h3 className="text-2xl font-semibold text-gray-800">
+              Lalithendra Reddy Bhima
+            </h3>
+            <p className="text-[#22aaff] font-medium mb-3">
+              Co-Founder & Co-President & AI and Computer Science Research Lead 
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              (add descripton)
+            </p>
+          </div>
+        </div>
+
+        {/* TEAM MEMBER 2 */}
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <img
+            src="/Bhavika.png"   // ← replace with your real image
+            alt="Bhavika Bhima"
+            className="w-80 h-96 rounded-lg object-cover shadow-lg"
+          />
+
+          <div className="max-w-2xl text-center md:text-left">
+            <h3 className="text-2xl font-semibold text-gray-800">
+              Bhavika Bhima
+            </h3>
+            <p className="text-[#23c07e] font-medium mb-3">
+              Co-Founder & Co-President & Biotechnology Lead
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              (add desccription)
+            </p>
+          </div>
         </div>
       </Section>
+
 
       <Section id="our-approach">
         <div className="text-center mb-12">
@@ -540,19 +610,6 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
 
       <Section id="ways-to-contribute">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Donate Card */}
-          <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
-            <DollarSign className="h-16 w-16 text-green-500 mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-3">Donate</h3>
-            <p className="text-gray-600 mb-6 flex-grow">Your financial contribution directly funds our research, development, and deployment of AI health solutions in underserved areas.</p>
-            <button
-              onClick={() => setCurrentPage('donate')}
-              className="mt-auto w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
-            >
-              Make a Donation
-            </button>
-          </div>
-
           {/* Volunteer Card (Placeholder) */}
           <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
             <Users className="h-16 w-16 text-blue-500 mb-6" />
@@ -578,213 +635,24 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
               Discuss Partnership
             </button>
           </div>
-        </div>
-      </Section>
-    </>
-  );
-};
-
-// DonatePage Component
-const DonatePage = ({ setCurrentPage }) => {
-  const [donationAmount, setDonationAmount] = useState(50);
-  const [customAmount, setCustomAmount] = useState('');
-  const [donationFrequency, setDonationFrequency] = useState('one-time');
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '', email: '', address: '', city: '', postalCode: '', country: 'USA' // Example fields
-  });
-  const [errors, setErrors] = useState({});
-
-  const presetAmounts = [25, 50, 100, 250, 500];
-
-  const handleAmountChange = (amount) => {
-    setDonationAmount(amount);
-    setCustomAmount(''); // Clear custom amount if preset is chosen
-    setErrors(prev => ({...prev, amount: null})); // Clear amount error
-  };
-
-  const handleCustomAmountChange = (e) => {
-    const value = e.target.value;
-    // Allow only numbers and an empty string
-    if (/^\d*$/.test(value)) { 
-      setCustomAmount(value);
-      setDonationAmount(Number(value) || 0); // Set to 0 if empty or invalid, validation will catch it
-      if (Number(value) > 0) {
-        setErrors(prev => ({...prev, amount: null})); // Clear amount error if valid custom amount
-      }
-    }
-  };
-  
-  const handleInputChange = (e) => {
-    const {name, value} = e.target;
-    setFormData(prev => ({...prev, [name]: value}));
-    // Clear error for this field when user starts typing
-    if(errors[name]) {
-        setErrors(prev => ({...prev, [name]: null}));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Full Name is required.";
-    if (!formData.email.trim()) {
-        newErrors.email = "Email Address is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.email = "Email address is invalid.";
-    }
-    if (donationAmount <= 0) {
-        newErrors.amount = "Please select or enter a valid donation amount.";
-    }
-    // Add more validation as needed for address, city, postalCode, country, etc.
-    // For example:
-    // if (!formData.address.trim()) newErrors.address = "Address is required.";
-    // if (!formData.city.trim()) newErrors.city = "City is required.";
-    // if (!formData.postalCode.trim()) newErrors.postalCode = "Postal Code is required.";
-    // else if (!/^\d{5}(-\d{4})?$/.test(formData.postalCode) && formData.country === 'USA') newErrors.postalCode = "Invalid US Postal Code.";
-
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // In a real application, this is where you would integrate with a payment gateway (e.g., Stripe, PayPal).
-      // The console.log is a placeholder for that integration.
-      console.log("Processing Donation:", { 
-        amount: donationAmount, 
-        frequency: donationFrequency,
-        donorInfo: formData 
-      });
-      setFormSubmitted(true); // Simulate successful submission
-    } else {
-      console.log("Validation Errors:", errors);
-    }
-  };
-
-  if (formSubmitted) {
-    return (
-      <Section className="pt-24 md:pt-32 text-center" id="donate-thanks">
-        <CheckCircle className="h-24 w-24 text-green-500 mx-auto mb-8" />
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Thank You for Your Generous Donation!</h1>
-        <p className="text-lg text-gray-600 max-w-xl mx-auto mb-8">
-          Your support for ArogyaAI Science Society helps us continue our vital work in leveraging AI for global health equity. 
-          A confirmation email has been notionally sent to {formData.email}.
-        </p>
-        <button
-          onClick={() => {
-            setCurrentPage('home');
-            // Reset form state if needed when navigating away
-            setFormSubmitted(false); 
-            setDonationAmount(50);
-            setCustomAmount('');
-            setFormData({name: '', email: '', address: '', city: '', postalCode: '', country: 'USA'});
-          }}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md"
-        >
-          Back to Homepage
-        </button>
-      </Section>
-    );
-  }
-
-  return (
-    <>
-      <Section className="bg-green-50 pt-24 md:pt-32" id="donate-hero">
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Support ArogyaAI</h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Your contribution empowers us to develop and deploy AI-driven solutions that save lives and improve health outcomes in underserved communities.
-          </p>
-        </div>
-      </Section>
-
-      <Section id="donate-form-section">
-        <div className="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-2xl">
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Choose Your Donation Amount</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-4">
-                {presetAmounts.map(amount => (
-                  <button
-                    key={amount}
-                    type="button"
-                    onClick={() => handleAmountChange(amount)}
-                    className={`p-3 border rounded-lg font-medium transition-colors ${donationAmount === amount && !customAmount ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 hover:bg-gray-200 border-gray-300 text-gray-700'}`}
-                  >
-                    ${amount}
-                  </button>
-                ))}
-              </div>
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  type="text" 
-                  inputMode="numeric" // Helps mobile users get numeric keyboard
-                  pattern="[0-9]*"    // For basic pattern validation (though JS handles main logic)
-                  value={customAmount}
-                  onChange={handleCustomAmountChange}
-                  placeholder="Or Enter Custom Amount"
-                  aria-label="Custom donation amount"
-                  className={`w-full p-3 pl-10 border rounded-lg focus:ring-2 ${errors.amount ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
-                />
-              </div>
-              {errors.amount && <p className="text-red-500 text-sm mt-1">{errors.amount}</p>}
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Donation Frequency</h3>
-              <div className="flex space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setDonationFrequency('one-time')}
-                  className={`px-6 py-3 rounded-lg font-medium transition-colors w-1/2 ${donationFrequency === 'one-time' ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-700'}`}
-                >
-                  One-Time
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDonationFrequency('monthly')}
-                  className={`px-6 py-3 rounded-lg font-medium transition-colors w-1/2 ${donationFrequency === 'monthly' ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-700'}`}
-                >
-                  Monthly <span className="text-xs opacity-80">(Recurring)</span>
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Your Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" name="name" id="name" autoComplete="name" value={formData.name} onChange={handleInputChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`} />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                  <input type="email" name="email" id="email" autoComplete="email" value={formData.email} onChange={handleInputChange} className={`w-full p-3 border rounded-lg focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`} />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
-              </div>
-              {/* Placeholder for more address fields and payment details - these would be added for a real payment gateway */}
-              <p className="text-xs text-gray-500 mt-4">
-                Additional fields for address and payment (e.g., credit card details via Stripe Elements or PayPal button) would appear here in a live integration. This form is conceptual for demonstration.
-              </p>
-            </div>
-
-            <div className="pt-4">
-              <button
-                type="submit"
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg text-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
-              >
-                Donate ${donationAmount > 0 ? donationAmount : '0'}{donationFrequency === 'monthly' ? ' Monthly' : ''}
-              </button>
-            </div>
-            <p className="text-xs text-center text-gray-500">
-              Secure payment processing will be handled by a trusted gateway (e.g., Stripe, PayPal). Your data is protected.
+          {/* Support Our Cause Card */}
+          <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
+            <Heart className="h-16 w-16 text-red-500 mb-6" />
+            <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+              Help Support Our Cause
+            </h3>
+            <p className="text-gray-600 mb-6 flex-grow">
+              Support our mission by spreading awareness, help contribute to our cause, connecting us with communities,
+              educators, or healthcare leaders, or helping amplify our impact through outreach
+              and advocacy.
             </p>
-          </form>
+            <button
+              onClick={() => setCurrentPage('contact')}
+              className="mt-auto w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
+            >
+              Help Support
+            </button>
+          </div>
         </div>
       </Section>
     </>
@@ -892,22 +760,37 @@ const ContactPage = ({ setCurrentPage }) => {
     }
   };
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
-    if (validateContactForm()) {
-      setFormStatus('sending');
-      // Simulate API call for contact form submission
-      setTimeout(() => {
-        // Randomly succeed or fail for demo purposes
-        if (Math.random() > 0.1) { // Higher success rate for demo
-          console.log("Contact Form Submitted:", contactForm);
-          setFormStatus('sent');
-          setContactForm({ name: '', email: '', subject: '', message: '' }); // Reset form
-          setContactErrors({}); // Clear errors
-        } else {
-          setFormStatus('error');
+
+    if (!validateContactForm()) return;
+
+    setFormStatus('sending');
+
+    try {
+      await fetch(
+        'https://script.google.com/macros/s/AKfycbxJfFvlmIxMoASDo_qeoqoJfQpOIwDemL5H5TnXTLyNRk7Qnv4gc2s9eYx296_jLMNRYQ/exec',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'contact',
+            name: contactForm.name,
+            email: contactForm.email,
+            subject: contactForm.subject,
+            message: contactForm.message,
+            source: 'website'
+          })
         }
-      }, 1500);
+      );
+
+      // If fetch doesn't throw → assume success
+      setFormStatus('sent');
+      setContactForm({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      console.error(err);
+      setFormStatus('error');
     }
   };
 
@@ -916,7 +799,7 @@ const ContactPage = ({ setCurrentPage }) => {
       <Section className="bg-gray-50 pt-24 md:pt-32 text-center" id="contact-hero">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get in Touch</h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          We'd love to hear from you. Whether you have a question, a partnership proposal, or want to learn more about our work, please reach out.
+          We'd love to hear from you. Whether you have a question, a partnership, proposal, or want to learn more about our work, please reach out.
         </p>
       </Section>
 
@@ -963,23 +846,29 @@ const ContactPage = ({ setCurrentPage }) => {
           {/* Contact Information */}
           <div className="space-y-8 mt-8 md:mt-0">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Globe className="mr-2 h-5 w-5 text-blue-600"/> Our Office (Conceptual)</h3>
-              <p className="text-gray-600 pl-7">123 Innovation Drive<br />Tech Park, CA 94000<br />United States</p>
-            </div>
-            <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><MessageSquare className="mr-2 h-5 w-5 text-blue-600"/> Email Us</h3>
-              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:info@arogyaai.org">info@arogyaai.org</a></p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Zap className="mr-2 h-5 w-5 text-blue-600"/> Call Us (Conceptual)</h3> {/* Changed icon for variety */}
-              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:lalithendrareddy.bhima@gmail.com">lalithendrareddy.bhima@gmail.com</a></p>
+              <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:bhavika.bhima@gmail.com">bhavika.bhima@gmail.com</a></p>
+
             </div>
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Users className="mr-2 h-5 w-5 text-blue-600"/> Follow Us</h3>
               <div className="flex space-x-4 pl-7">
-                {/* Replace # with actual social media links. Use appropriate icons. */}
-                <a href="#" aria-label="ArogyaAI on Twitter" className="text-gray-500 hover:text-blue-600"><svg fill="currentColor" viewBox="0 0 24 24" className="h-6 w-6"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733a4.67 4.67 0 0 0 2.048-2.578 9.3 9.3 0 0 1-2.958 1.13 4.66 4.66 0 0 0-7.938 4.25 13.229 13.229 0 0 1-9.602-4.868c-.4.69-.63 1.49-.63 2.342A4.66 4.66 0 0 0 3.96 9.824a4.647 4.647 0 0 1-2.11-.583v.06a4.66 4.66 0 0 0 3.737 4.568 4.692 4.692 0 0 1-2.104.08 4.661 4.661 0 0 0 4.35 3.234 9.348 9.348 0 0 1-5.786 1.995 9.5 9.5 0 0 1-1.112-.065 13.175 13.175 0 0 0 7.14 2.093c8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602a9.49 9.49 0 0 0 2.323-2.41z"></path></svg></a>
-                <a href="#" aria-label="ArogyaAI on LinkedIn" className="text-gray-500 hover:text-blue-600"><svg fill="currentColor" viewBox="0 0 24 24" className="h-6 w-6"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"></path></svg></a>
+                <a
+                  href="https://www.youtube.com/@Lalith_B"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="ArogyaAI on YouTube"
+                  className="text-gray-500 hover:text-red-600 transition-colors"
+                >
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                  >
+                    <path d="M23.498 6.186a2.958 2.958 0 0 0-2.08-2.09C19.72 3.5 12 3.5 12 3.5s-7.72 0-9.418.596a2.958 2.958 0 0 0-2.08 2.09A30.02 30.02 0 0 0 0 12a30.02 30.02 0 0 0 .502 5.814 2.958 2.958 0 0 0 2.08 2.09C4.28 20.5 12 20.5 12 20.5s7.72 0 9.418-.596a2.958 2.958 0 0 0 2.08-2.09A30.02 30.02 0 0 0 24 12a30.02 30.02 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
@@ -1005,10 +894,10 @@ const AIChatbotButton = ({ onClick }) => {
 
 const AIChatbotModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-  // Basic chatbot interaction logic (conceptual)
+  // Basic chatbot interaction logic 
   const [chatInput, setChatInput] = useState('');
   const [chatMessages, setChatMessages] = useState([
-    { sender: 'bot', text: "Hello! I'm the ArogyaAI Assistant. How can I help you today? (Conceptual)" }
+    { sender: 'bot', text: "Hello! I'm the ArogyaAI Assistant. How can I help you today?" }
   ]);
 
   const handleChatSend = () => {
@@ -1052,12 +941,17 @@ const AIChatbotModal = ({ isOpen, onClose }) => {
             ))}
         </div>
         
-        {/* Quick Replies (Conceptual) */}
+        {/* Quick Replies*/}
         <div className="p-2 border-t border-gray-200">
             <p className="text-xs text-gray-500 mb-2 text-center">Suggested questions:</p>
             <div className="flex flex-wrap gap-2 justify-center">
                 <button onClick={() => setChatInput('What projects are you working on?')} className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Projects?</button>
-                <button onClick={() => setChatInput('How can I donate?')} className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Donate?</button>
+                <button
+                  onClick={() => setChatInput('How can I support your mission?')}
+                  className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
+                >
+                  Support?
+                </button>
                 <button onClick={() => setChatInput('Ethical AI principles?')} className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Ethics?</button>
             </div>
         </div>
@@ -1109,8 +1003,6 @@ const App = () => {
         return <OurWorkPage setCurrentPage={setCurrentPage} />;
       case 'involved':
         return <GetInvolvedPage setCurrentPage={setCurrentPage} />;
-      case 'donate':
-        return <DonatePage setCurrentPage={setCurrentPage} />;
       case 'ethics':
         return <EthicalAIPage setCurrentPage={setCurrentPage} />;
       case 'contact':
