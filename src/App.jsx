@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, BarChart2, Bot, DollarSign, Users, Zap, Heart, Brain, Globe, MessageSquare, CheckCircle, XCircle, Search, Menu, X } from 'lucide-react';
+import.meta.env.BASE_URL
 
 const RevealOnScroll = ({ children, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -83,7 +84,7 @@ const Header = ({ setCurrentPage, currentPage }) => {
             onClick={() => handleNavClick('home')}
           >
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="ArogyaAI Logo"
               className="h-16 w-16 object-contain"
               />
@@ -457,7 +458,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
             </div>
             <div>
               <img 
-                src="/ourVision.JPG"   
+                src={`${import.meta.env.BASE_URL}ourVision.JPG`}   
                 alt="Conceptual image representing ArogyaAI's vision" 
                 className="rounded-xl shadow-xl w-full h-auto"
                 onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x450/cccccc/ffffff?text=Image+Not+Found"; }}
@@ -481,7 +482,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
           {/* TEAM MEMBER 1 */}
           <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
             <img
-              src="/Lalith.png"   // ← replace with your real image
+              src={`${import.meta.env.BASE_URL}Lalith.png`}   // ← replace with your real image
               alt="Lalithendra Reddy Bhima"
               className="w-80 h-96 rounded-lg object-cover shadow-lg"
             />
@@ -511,7 +512,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
           {/* TEAM MEMBER 2 */}
           <div className="flex flex-col md:flex-row items-center gap-8">
             <img
-              src="/Bhavika.png"   // ← replace with your real image
+              src={`${import.meta.env.BASE_URL}Bhavika.png`}   // ← replace with your real image
               alt="Bhavika Bhima"
               className="w-80 h-96 rounded-lg object-cover shadow-lg"
             />
@@ -539,7 +540,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
           {/* TEAM MEMBER 3 */}
           <div className="flex flex-col md:flex-row items-center gap-8 mt-16">
             <img
-              src="/Ananth.jpeg"   // ← replace with your real image
+              src={`${import.meta.env.BASE_URL}Ananth.jpeg`}   // ← replace with your real image
               alt="Ananth Karthic"
               className="w-80 h-96 rounded-lg object-cover shadow-lg"
             />
