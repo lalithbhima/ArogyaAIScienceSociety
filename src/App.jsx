@@ -535,6 +535,35 @@ const AboutUsPage = ({ setCurrentPage }) => {
               </p>
             </div>
           </div>
+          
+          {/* TEAM MEMBER 3 */}
+          <div className="flex flex-col md:flex-row items-center gap-8 mt-16">
+            <img
+              src="/Ananth.jpeg"   // ← replace with your real image
+              alt="Ananth Karthic"
+              className="w-80 h-96 rounded-lg object-cover shadow-lg"
+            />
+
+            <div className="max-w-2xl text-center md:text-left">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                Ananth Karthic
+              </h3>
+              <p className="text-[#06b6d4] font-medium mb-3">
+                Vice-President & Cybersecurity Lead
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Ananth Karthic is a 11th-grade student at Folsom High School and an emerging computer scientist 
+                and cybersecurity enthusiast focused on building practical, socially impactful technology. He is 
+                a Regional Finalist in the Congressional App Challenge, where he presented EcoVera to U.S. Representative 
+                Kevin Kiley, and a hands-on developer of tools promoting environmental awareness and digital literacy.
+                His work includes building a Raspberry Pi–based network monitoring and visualization system, developing 
+                interactive Python applications for student learning, and researching cybersecurity concepts including network 
+                forensics and ethical hacking. He is certified in cybersecurity through TryHackMe and Cisco, demonstrating 
+                practical expertise in network security and ethical hacking. Through his projects, Ananth aims to advance accessible,
+                education-driven technology solutions that empower communities and prepare students for the future digital landscape.
+              </p>
+            </div>
+          </div>
         </RevealOnScroll>
       </Section>
 
@@ -930,7 +959,7 @@ const ContactPage = ({ setCurrentPage }) => {
                 <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><MessageSquare className="mr-2 h-5 w-5 text-blue-600"/> Email Us</h3>
                 <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:lalithendrareddy.bhima@gmail.com">lalithendrareddy.bhima@gmail.com</a></p>
                 <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:bhavika.bhima@gmail.com">bhavika.bhima@gmail.com</a></p>
-
+                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:Ananthkarthic2306@gmail.com">Ananthkarthic2306@gmail.com</a></p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Users className="mr-2 h-5 w-5 text-blue-600"/> Follow Us</h3>
