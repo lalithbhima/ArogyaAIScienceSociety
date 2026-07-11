@@ -1,0 +1,6 @@
+node_modules
+dist
+.DS_Store
+
+# Keep your OpenRouter API key private — edit src/config/openrouter.key.js locally
+src/config/openrouter.key.js

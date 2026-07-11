@@ -41,6 +41,59 @@ body {
   background: #a1a1a1; /* Color of the scroll thumb on hover */
 }
 
+/* Continuous left-to-right testimonial marquee */
+@keyframes testimonial-marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.testimonial-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.testimonial-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  padding: 0.5rem 0;
+  animation: testimonial-marquee-ltr 45s linear infinite;
+  will-change: transform;
+}
+
+.testimonial-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-marquee-card {
+  width: 300px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  border: 1px solid #f3f4f6;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .testimonial-marquee-card {
+    width: 360px;
+  }
+}
+
+@media (min-width: 768px) {
+  .testimonial-marquee-card {
+    width: 420px;
+  }
+}
+
+
 /* For Firefox */
 /* Note: Firefox scrollbar styling is less customizable than WebKit */
 /* You might need to enable experimental features or use simpler properties */

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, BarChart2, Bot, DollarSign, Users, Zap, Heart, Brain, Globe, MessageSquare, CheckCircle, XCircle, Search, Menu, X } from 'lucide-react';
+import { ArrowRight, BarChart2, DollarSign, Users, Zap, Heart, Brain, Globe, MessageSquare, CheckCircle, XCircle, Search, Menu, X, Instagram } from 'lucide-react';
+import ArogyaAIChatbot from './components/ArogyaAIChatbot';
+import SurveyImpactSection from './components/SurveyImpactSection';
+import { submitWebsiteForm } from './utils/submitWebsiteForm';
 import.meta.env.BASE_URL
 
 const RevealOnScroll = ({ children, className = '' }) => {
@@ -39,11 +42,11 @@ const RevealOnScroll = ({ children, className = '' }) => {
 const MOCK_PROJECTS = [
   {
     id: 1,
-    title: "ArogyaAI",
-    description: "An innovative, AI-powered health app to optimize accessible global wellness.",
-    impact: "Improved early health awareness, preventive guidance, and AI-driven health education for students and families, with a focus on underserved and low-resource communities.",
-    tags: ["Health Education", "Healthcare AI", "Global Wellness"],
-    image: "https://placehold.co/600x400/2ecc71/ffffff?text=ArogyaAI+App",
+    title: "Innovation Projects",
+    description: "Hands-on projects that make computer science and STEAM concepts accessible and engaging for students of all ages.",
+    impact: "Helping students explore AI, build digital literacy, and develop problem-solving skills through collaborative, project-based learning.",
+    tags: ["AI", "STEAM", "Education"],
+    image: "https://placehold.co/600x400/2ecc71/ffffff?text=Innovation+Projects",
     learnMoreLink: "/our-work/project-2"
   },
 ];
@@ -143,7 +146,7 @@ const Footer = ({ setCurrentPage }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
             <h3 className="text-xl font-semibold text-white mb-4">ArogyaAI Science Society</h3>
-            <p className="text-sm mb-4">Empowering underserved communities through ethical AI and scientific innovation for lasting health and well-being.</p>
+            <p className="text-sm mb-4">Empowering computer science through innovation—building future innovators and problem solvers from elementary through high school.</p>
             <div className="flex space-x-4">
               <button
                 onClick={() => setCurrentPage('contact')}
@@ -188,19 +191,11 @@ const Footer = ({ setCurrentPage }) => {
                   setNewsletterStatus('Submitting...');
 
                   try {
-                    await fetch(
-                      'https://script.google.com/macros/s/AKfycbxJfFvlmIxMoASDo_qeoqoJfQpOIwDemL5H5TnXTLyNRk7Qnv4gc2s9eYx296_jLMNRYQ/exec',
-                      {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          type: 'newsletter',
-                          email: newsletterEmail,
-                          source: 'footer'
-                        })
-                      }
-                    );
+                    await submitWebsiteForm({
+                      type: 'newsletter',
+                      email: newsletterEmail,
+                      source: 'footer',
+                    });
 
                     // If fetch does not throw, assume success
                     setNewsletterStatus('✅ Subscribed!');
@@ -234,7 +229,7 @@ const Footer = ({ setCurrentPage }) => {
         </div>
         <div className="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} ArogyaAI Science Society. All rights reserved.</p>
-          <p className="mt-1">Designed with <Heart className="inline h-4 w-4 text-red-500" /> for a healthier future.</p>
+          <p className="mt-1">Designed with <Heart className="inline h-4 w-4 text-red-500" /> for the next generation of innovators.</p>
           <p className="mt-2 text-gray-400 text-xs">
             Founded by Lalithendra Reddy Bhima &amp; Bhavika Bhima
           </p>
@@ -253,10 +248,10 @@ const HomePage = ({ setCurrentPage }) => {
         <RevealOnScroll>
           <div className="py-20 md:py-32">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
-              Advancing Health Equity with <span className="block sm:inline">Artificial Intelligence</span>
+              Empowering Computer Science <span className="block sm:inline">Through Innovation</span>
             </h1>
             <p className="text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-              ArogyaAI Science Society leverages cutting-edge AI to bring transformative health solutions to underserved communities worldwide.
+              Leveraging technology to create digital bridges rather than digital divides—building future innovators and problem solvers.
             </p>
             <div className="space-y-4 sm:space-y-0 sm:space-x-4">
               <button
@@ -272,7 +267,7 @@ const HomePage = ({ setCurrentPage }) => {
                 onClick={() => setCurrentPage('work')}
                 className="bg-transparent hover:bg-white hover:text-blue-700 text-white font-bold py-4 px-10 rounded-lg text-lg border-2 border-white transition-all duration-300"
               >
-                See Our Impact
+                See Our Work
               </button>
             </div>
           </div>
@@ -283,28 +278,43 @@ const HomePage = ({ setCurrentPage }) => {
       <Section id="mission">
         <RevealOnScroll>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Mission: AI for Global Health</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We are dedicated to developing and deploying ethical AI-driven solutions that address critical health challenges in communities with limited access to resources.
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Mission</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              We leverage modern advancements to create digital bridges rather than digital divides—building future innovators and problem solvers through hands-on computer science education.
             </p>
           </div>
         </RevealOnScroll>
         <RevealOnScroll>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
             <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
               <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-800 mb-2">Innovation</h3>
-              <p className="text-gray-600">Pioneering AI research and applications for tangible health outcomes.</p>
+              <p className="text-gray-600">Empowering computer science through cutting-edge exploration in AI, STEAM, cybersecurity, biotechnology, and research.</p>
             </div>
             <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-              <Globe className="h-12 w-12 text-green-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Equity</h3>
-              <p className="text-gray-600">Ensuring fair access to advanced health technologies for all.</p>
+              <Users className="h-12 w-12 text-green-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Education</h3>
+              <p className="text-gray-600">Teaching students from elementary through high school to explore, engage, compete, create, and have fun.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <Globe className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Digital Bridges</h3>
+              <p className="text-gray-600">Leveraging modern technology to connect communities and close the digital divide—not widen it.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <Brain className="h-12 w-12 text-purple-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Future Innovators</h3>
+              <p className="text-gray-600">Building the next generation of problem solvers equipped to tackle real-world challenges with technology.</p>
             </div>
             <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
               <Heart className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Impact</h3>
-              <p className="text-gray-600">Creating sustainable, positive change in community health and well-being.</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Explore & Create</h3>
+              <p className="text-gray-600">Inspiring curiosity and creativity through hands-on projects, competitions, and collaborative learning.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <BarChart2 className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Engage & Compete</h3>
+              <p className="text-gray-600">Providing opportunities to compete, showcase work, and grow through real-world challenges and collaborative events.</p>
             </div>
           </div>
         </RevealOnScroll>
@@ -314,9 +324,9 @@ const HomePage = ({ setCurrentPage }) => {
       <Section id="featured-projects" className="bg-gray-50">
         <RevealOnScroll>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured AI Initiatives</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured Initiatives</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover how we're applying AI to solve real-world health problems.
+              Discover how we're applying AI, STEAM, cybersecurity, and biotechnology to inspire the next generation of innovators.
             </p>
           </div>
           <div className="grid place-items-center">
@@ -354,56 +364,16 @@ const HomePage = ({ setCurrentPage }) => {
         </RevealOnScroll>
       </Section>
 
-      {/* Impact Snapshot Section - Placeholder for advanced visualization */}
-      <Section id="impact-snapshot">
+      {/* Impact Snapshot — real summer program survey data */}
+      <Section id="impact-snapshot" className="bg-gray-50">
         <RevealOnScroll>
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Impact at a Glance</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Visualizing the difference we're making, powered by data and AI insights.
+              Real results from students who explored AI, cybersecurity, and biotechnology with us.
             </p>
           </div>
-          <div className="bg-white p-6 md:p-10 rounded-xl shadow-xl">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div>
-                <h4 className="text-4xl font-bold text-blue-600 mb-2">15,000+</h4>
-                <p className="text-gray-700 font-medium">Lives Touched Directly</p>
-              </div>
-              <div>
-                <h4 className="text-4xl font-bold text-green-500 mb-2">30%</h4>
-                <p className="text-gray-700 font-medium">Improvement in Diagnostic Speed (Avg.)</p>
-              </div>
-              <div>
-                <h4 className="text-4xl font-bold text-red-500 mb-2">5 Countries</h4>
-                <p className="text-gray-700 font-medium">Active AI Health Programs</p>
-              </div>
-            </div>
-            <div className="mt-10">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Resource Allocation Efficiency (Mock Data)</h3>
-              {/* Simple bar chart placeholder - Consider using a library like Recharts or D3 for actual charts */}
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-600 shrink-0">AI Research:</span>
-                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                    <div className="bg-blue-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '70%' }}>70%</div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-600 shrink-0">Field Deployment:</span>
-                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                    <div className="bg-green-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '85%' }}>85%</div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-600 shrink-0">Community Training:</span>
-                  <div className="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-                    <div className="bg-yellow-500 h-6 rounded-full text-xs text-white flex items-center justify-center" style={{ width: '60%' }}>60%</div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 mt-3 text-center">This is a simplified representation. Detailed financial reports will be available.</p>
-            </div>
-          </div>
+          <SurveyImpactSection />
         </RevealOnScroll>
       </Section>
 
@@ -411,9 +381,9 @@ const HomePage = ({ setCurrentPage }) => {
       <Section id="cta" className="bg-blue-700 text-white">
         <RevealOnScroll>
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Make a Difference?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Explore, Create, and Compete?</h2>
             <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-              Your contribution can fuel life-changing AI innovations for those who need them most. Join us in shaping a healthier, more equitable future.
+              Join us in building future innovators and problem solvers. Whether you're a student, educator, or partner—we'd love to connect and create digital bridges together.
             </p>
             <button
               onClick={() => setCurrentPage('contact')}
@@ -436,7 +406,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
         <RevealOnScroll>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">About ArogyaAI Science Society</h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Pioneering ethical AI solutions to create a healthier and more equitable world for underserved communities.
+            Leveraging technology to create digital bridges rather than digital divides—empowering computer science through innovation.
           </p>
         </RevealOnScroll>
       </Section>
@@ -447,18 +417,18 @@ const AboutUsPage = ({ setCurrentPage }) => {
             <div>
               <h2 className="text-3xl font-bold text-gray-800 mb-6">Our Story & Vision</h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                ArogyaAI Science Society was founded on the belief that advanced technology, particularly Artificial Intelligence, holds immense potential to bridge health disparities. We envision a world where everyone, regardless of their location or economic status, has access to high-quality healthcare insights and solutions.
+                ArogyaAI Science Society was founded on the belief that computer science education, powered by modern advancements in AI, STEAM, cybersecurity, and biotechnology, can create digital bridges rather than digital divides. We envision a world where every student—from elementary through high school—has the opportunity to explore, engage, compete, create, and have fun with technology.
               </p>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                Our journey began with a small team of passionate students who saw the unmet needs in global health and the transformative power of AI. Today, we are a growing organization committed to rigorous research, community-centric deployment, and unwavering ethical standards.
+                Our journey began with a small team of passionate students who saw the need for accessible, hands-on computer science education. Today, we are a growing organization committed to rigorous research, student-centered teaching, and responsible innovation.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                We focus on creating AI tools that are not only innovative but also accessible, affordable, and adaptable to diverse local contexts. Our core values are innovation, integrity, collaboration, and impact.
+                We focus on building future innovators and problem solvers through projects that are not only cutting-edge but also engaging, inclusive, and adaptable to learners at every level. Our core values are innovation, education, collaboration, and impact.
               </p>
             </div>
             <div>
               <img 
-                src={`${import.meta.env.BASE_URL}ourVision.JPG`}   
+                src={`${import.meta.env.BASE_URL}ourVision.png`}
                 alt="Conceptual image representing ArogyaAI's vision" 
                 className="rounded-xl shadow-xl w-full h-auto"
                 onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x450/cccccc/ffffff?text=Image+Not+Found"; }}
@@ -475,7 +445,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
               Meet Our Team
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              A focused, student-led team committed to ethical AI and global health equity.
+              A student-led team committed to empowering computer science through innovation and education.
             </p>
           </div>
 
@@ -504,7 +474,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
                  investigations into the metacognitive behavior
                  of large language models such as ChatGPT, and the development of civicAI tools in 
                  collaboration with Sacramento County to promote civic education. Through ArogyaAI 
-                 Science Society, he aims to advance accessible, ethical, and education-driven AI for underserved communities.
+                 Science Society, he aims to empower students through accessible, ethical, and education-driven computer science—building future innovators and problem solvers.
               </p>
             </div>
           </div>
@@ -525,7 +495,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
                 Co-Founder & Co-President & Biotechnology Lead
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Bhavika Bhima is a 9th-grade student at Folsom High School and an a focus 
+                Bhavika Bhima is a 9th-grade student at Folsom High School with a focus 
                 on applying biological research to real-world health challenges. She is a 
                 Second Prize winner at the NASA Space Apps Challenge and a potential 
                 international (global) nominee, as well as a Second Prize winner of the 
@@ -572,23 +542,23 @@ const AboutUsPage = ({ setCurrentPage }) => {
       <Section id="our-approach">
         <RevealOnScroll>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Approach to AI in Global Health</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Approach to Computer Science Education</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-xl shadow-lg">
                   <Brain className="h-10 w-10 text-blue-600 mb-3"/>
-                  <h3 className="text-xl font-semibold mb-2">Ethical AI by Design</h3>
-                  <p className="text-gray-600">We embed ethical considerations, fairness, and transparency into every stage of our AI development lifecycle. <button onClick={() => setCurrentPage('ethics')} className="text-blue-600 hover:underline font-medium">Learn more about our framework.</button></p>
+                  <h3 className="text-xl font-semibold mb-2">Explore & Innovate</h3>
+                  <p className="text-gray-600">We guide students through hands-on exploration of AI, STEAM, cybersecurity, biotechnology, and research—turning curiosity into real projects. <button onClick={() => setCurrentPage('ethics')} className="text-blue-600 hover:underline font-medium">Learn more about our ethical framework.</button></p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
                   <Users className="h-10 w-10 text-green-500 mb-3"/>
-                  <h3 className="text-xl font-semibold mb-2">Community Collaboration</h3>
-                  <p className="text-gray-600">We work closely with local communities and healthcare providers to ensure our solutions are culturally appropriate and meet real-world needs.</p>
+                  <h3 className="text-xl font-semibold mb-2">Engage & Teach</h3>
+                  <p className="text-gray-600">We teach students from elementary through high school, creating inclusive learning experiences where everyone can explore, engage, compete, create, and have fun.</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <BarChart2 className="h-10 w-10 text-yellow-500 mb-3"/>
-                  <h3 className="text-xl font-semibold mb-2">Data-Driven Impact</h3>
-                  <p className="text-gray-600">We rigorously measure and evaluate the impact of our interventions, using data to continuously improve and scale our solutions.</p>
+                  <Globe className="h-10 w-10 text-yellow-500 mb-3"/>
+                  <h3 className="text-xl font-semibold mb-2">Digital Bridges</h3>
+                  <p className="text-gray-600">We leverage modern advancements to connect communities and close the digital divide—building future innovators and problem solvers, not leaving anyone behind.</p>
               </div>
           </div>
         </RevealOnScroll>
@@ -615,9 +585,9 @@ const OurWorkPage = ({ setCurrentPage }) => {
     <>
       <Section className="bg-blue-50 pt-24 md:pt-32 text-center" id="work-hero">
         <RevealOnScroll>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our AI-Powered Initiatives</h1>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our Initiatives</h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore how ArogyaAI is applying artificial intelligence to create impactful health solutions for communities in need.
+            Explore how ArogyaAI Science Society applies AI, STEAM, cybersecurity, biotechnology, and research to empower students and build future innovators.
           </p>
         </RevealOnScroll>
       </Section>
@@ -672,7 +642,7 @@ const OurWorkPage = ({ setCurrentPage }) => {
                     </div>
                     <p className="text-green-600 font-semibold text-sm mb-4">Impact Highlight: <span className="font-normal text-gray-700">{project.impact}</span></p>
                     <button 
-                      onClick={() => window.open('https://github.com/lalithbhima/arogyaAI', '_blank')}
+                      onClick={() => setCurrentPage('contact')}
                       className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105 flex items-center justify-center"
                     >
                       Learn More <ArrowRight className="ml-2 h-5 w-5" />
@@ -703,7 +673,7 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
         <RevealOnScroll>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Get Involved & Make an Impact</h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Your support, skills, and voice can help us bring AI-driven health solutions to more communities. Join us in our mission.
+            Your support, skills, and voice can help us empower more students through computer science. Join us in building future innovators and problem solvers.
           </p>
         </RevealOnScroll>
       </Section>
@@ -715,7 +685,7 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
             <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
               <Users className="h-16 w-16 text-blue-500 mb-6" />
               <h3 className="text-2xl font-semibold text-gray-800 mb-3">Volunteer Your Skills</h3>
-              <p className="text-gray-600 mb-6 flex-grow">Are you an AI expert, healthcare professional, data scientist, or passionate individual? We welcome volunteers to contribute their expertise. (More info coming soon!)</p>
+              <p className="text-gray-600 mb-6 flex-grow">Are you a computer science educator, AI researcher, cybersecurity expert, or passionate mentor? We welcome volunteers to help students explore, engage, compete, create, and have fun. (More info coming soon!)</p>
               <button
                 onClick={() => setCurrentPage('contact')}
                 className="mt-auto w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
@@ -728,7 +698,7 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
             <div className="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center">
               <Zap className="h-16 w-16 text-yellow-500 mb-6" />
               <h3 className="text-2xl font-semibold text-gray-800 mb-3">Partner With Us</h3>
-              <p className="text-gray-600 mb-6 flex-grow">We collaborate with organizations, institutions, and corporations to amplify our impact. Let's explore partnership opportunities. (More info coming soon!)</p>
+              <p className="text-gray-600 mb-6 flex-grow">We collaborate with schools, organizations, and institutions to amplify our impact in computer science education. Let's explore partnership opportunities together. (More info coming soon!)</p>
               <button
                 onClick={() => setCurrentPage('contact')}
                 className="mt-auto w-full bg-yellow-500 hover:bg-yellow-600 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105"
@@ -743,8 +713,8 @@ const GetInvolvedPage = ({ setCurrentPage }) => {
                 Help Support Our Cause
               </h3>
               <p className="text-gray-600 mb-6 flex-grow">
-                Support our mission by spreading awareness, help contribute to our cause, connecting us with communities,
-                educators, or healthcare leaders, or helping amplify our impact through outreach
+                Support our mission by spreading awareness, connecting us with students and educators,
+                helping us create digital bridges in underserved communities, or amplifying our impact through outreach
                 and advocacy.
               </p>
               <button
@@ -769,7 +739,7 @@ const EthicalAIPage = ({ setCurrentPage }) => {
         <RevealOnScroll>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4">Our Commitment to Ethical AI</h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            At ArogyaAI, responsible innovation is paramount. We are dedicated to developing and deploying AI that is fair, transparent, accountable, and beneficial to all.
+            At ArogyaAI Science Society, responsible innovation is paramount. We are dedicated to developing and teaching technology that is fair, transparent, accountable, and creates digital bridges—not divides.
           </p>
         </RevealOnScroll>
       </Section>
@@ -793,31 +763,31 @@ const EthicalAIPage = ({ setCurrentPage }) => {
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Search className="h-10 w-10 text-blue-500 mb-3"/> {/* Icon changed for visual variety */}
                   <h3 className="text-xl font-semibold mb-2">Transparency & Explainability</h3>
-                  <p className="text-gray-600">We strive to make our AI systems understandable, providing insights into how decisions are made, especially in critical healthcare applications.</p>
+                  <p className="text-gray-600">We strive to make our AI and technology systems understandable, providing insights into how they work—especially when teaching students and building educational tools.</p>
               </div>
               {/* Card 3: Accountability */}
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Users className="h-10 w-10 text-yellow-500 mb-3"/>
                   <h3 className="text-xl font-semibold mb-2">Human Oversight & Accountability</h3>
-                  <p className="text-gray-600">Our AI tools are designed to augment human expertise, not replace it. We maintain clear lines of accountability for AI system performance and impact.</p>
+                  <p className="text-gray-600">Our technology tools are designed to augment human creativity and learning, not replace them. We maintain clear lines of accountability for system performance and student impact.</p>
               </div>
               {/* Card 4: Privacy */}
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Zap className="h-10 w-10 text-purple-500 mb-3"/> {/* Icon changed for visual variety */}
                   <h3 className="text-xl font-semibold mb-2">Data Privacy & Security</h3>
-                  <p className="text-gray-600">Protecting sensitive health data is a top priority. We adhere to stringent data governance and security protocols, complying with relevant regulations.</p>
+                  <p className="text-gray-600">Protecting student and user data is a top priority. We adhere to stringent data governance and security protocols, especially in our cybersecurity and AI education programs.</p>
               </div>
               {/* Card 5: Beneficence */}
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <Globe className="h-10 w-10 text-red-500 mb-3"/>
-                  <h3 className="text-xl font-semibold mb-2">Beneficence & Societal Well-being</h3>
-                  <p className="text-gray-600">Our primary goal is to use AI to create positive societal impact, focusing on projects that genuinely improve health and well-being in underserved communities.</p>
+                  <h3 className="text-xl font-semibold mb-2">Beneficence & Societal Impact</h3>
+                  <p className="text-gray-600">Our primary goal is to use technology to create positive societal impact—building future innovators and problem solvers while closing the digital divide.</p>
               </div>
               {/* Card 6: Engagement */}
               <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <MessageSquare className="h-10 w-10 text-teal-500 mb-3"/>
                   <h3 className="text-xl font-semibold mb-2">Community Engagement</h3>
-                  <p className="text-gray-600">We engage with communities to understand their needs and concerns, ensuring our AI solutions are developed and deployed collaboratively and respectfully.</p>
+                  <p className="text-gray-600">We engage with students, educators, and communities to understand their needs, ensuring our programs are developed collaboratively and create meaningful digital bridges.</p>
               </div>
           </div>
         </RevealOnScroll>
@@ -876,22 +846,14 @@ const ContactPage = ({ setCurrentPage }) => {
     setFormStatus('sending');
 
     try {
-      await fetch(
-        'https://script.google.com/macros/s/AKfycbxJfFvlmIxMoASDo_qeoqoJfQpOIwDemL5H5TnXTLyNRk7Qnv4gc2s9eYx296_jLMNRYQ/exec',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: 'contact',
-            name: contactForm.name,
-            email: contactForm.email,
-            subject: contactForm.subject,
-            message: contactForm.message,
-            source: 'website'
-          })
-        }
-      );
+      await submitWebsiteForm({
+        type: 'contact',
+        name: contactForm.name,
+        email: contactForm.email,
+        subject: contactForm.subject,
+        message: contactForm.message,
+        source: 'website',
+      });
 
       // If fetch doesn't throw → assume success
       setFormStatus('sent');
@@ -958,27 +920,19 @@ const ContactPage = ({ setCurrentPage }) => {
             <div className="space-y-8 mt-8 md:mt-0">
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><MessageSquare className="mr-2 h-5 w-5 text-blue-600"/> Email Us</h3>
-                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:lalithendrareddy.bhima@gmail.com">lalithendrareddy.bhima@gmail.com</a></p>
-                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:bhavika.bhima@gmail.com">bhavika.bhima@gmail.com</a></p>
-                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:Ananthkarthic2306@gmail.com">Ananthkarthic2306@gmail.com</a></p>
+                <p className="text-gray-600 pl-7 hover:text-blue-600 transition-colors"><a href="mailto:arogyaaisciencesociety@gmail.com">arogyaaisciencesociety@gmail.com</a></p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2 flex items-center"><Users className="mr-2 h-5 w-5 text-blue-600"/> Follow Us</h3>
                 <div className="flex space-x-4 pl-7">
                   <a
-                    href="https://www.youtube.com/@Lalith_B"
+                    href="https://www.instagram.com/arogyaaisciencesociety/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="ArogyaAI on YouTube"
-                    className="text-gray-500 hover:text-red-600 transition-colors"
+                    aria-label="ArogyaAI Science Society on Instagram"
+                    className="text-gray-500 hover:text-pink-600 transition-colors"
                   >
-                    <svg
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      className="h-6 w-6"
-                    >
-                      <path d="M23.498 6.186a2.958 2.958 0 0 0-2.08-2.09C19.72 3.5 12 3.5 12 3.5s-7.72 0-9.418.596a2.958 2.958 0 0 0-2.08 2.09A30.02 30.02 0 0 0 0 12a30.02 30.02 0 0 0 .502 5.814 2.958 2.958 0 0 0 2.08 2.09C4.28 20.5 12 20.5 12 20.5s7.72 0 9.418-.596a2.958 2.958 0 0 0 2.08-2.09A30.02 30.02 0 0 0 24 12a30.02 30.02 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z"/>
-                    </svg>
+                    <Instagram className="h-6 w-6" />
                   </a>
                 </div>
               </div>
@@ -991,114 +945,9 @@ const ContactPage = ({ setCurrentPage }) => {
 };
 
 
-// AI Chatbot Placeholder
-const AIChatbotButton = ({ onClick }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none z-50"
-      aria-label="Open AI Chatbot Assistant"
-    >
-      <Bot size={28} />
-    </button>
-  );
-};
-
-const AIChatbotModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  // Basic chatbot interaction logic 
-  const [chatInput, setChatInput] = useState('');
-  const [chatMessages, setChatMessages] = useState([
-    { sender: 'bot', text: "Hello! I'm the ArogyaAI Assistant. How can I help you today?" }
-  ]);
-
-  const handleChatSend = () => {
-    if (chatInput.trim() === '') return;
-    const newMessages = [...chatMessages, { sender: 'user', text: chatInput }];
-    // Simulate bot response
-    setTimeout(() => {
-        newMessages.push({ sender: 'bot', text: `I've received your message: "${chatInput}". As a conceptual assistant, I'm still learning!`});
-        setChatMessages(newMessages);
-    }, 1000);
-    setChatMessages(newMessages);
-    setChatInput('');
-  };
-
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end justify-center p-4 z-[100] sm:items-center" onClick={onClose}> {/* Close on overlay click */}
-      <div 
-        className="bg-white rounded-t-lg sm:rounded-lg shadow-xl w-full max-w-md flex flex-col max-h-[80vh]"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
-      >
-        {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <div className="flex items-center">
-            <Bot size={28} className="text-blue-600 mr-3" />
-            <h3 className="text-xl font-semibold text-gray-800">ArogyaAI Assistant</h3>
-          </div>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700" aria-label="Close chat">
-            <X size={24} />
-          </button>
-        </div>
-
-        {/* Chat Messages Area */}
-        <div className="flex-grow p-4 space-y-3 overflow-y-auto">
-            {chatMessages.map((msg, index) => (
-                <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[70%] p-3 rounded-xl ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
-                        {msg.text}
-                    </div>
-                </div>
-            ))}
-        </div>
-        
-        {/* Quick Replies*/}
-        <div className="p-2 border-t border-gray-200">
-            <p className="text-xs text-gray-500 mb-2 text-center">Suggested questions:</p>
-            <div className="flex flex-wrap gap-2 justify-center">
-                <button onClick={() => setChatInput('What projects are you working on?')} className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Projects?</button>
-                <button
-                  onClick={() => setChatInput('How can I support your mission?')}
-                  className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
-                >
-                  Support?
-                </button>
-                <button onClick={() => setChatInput('Ethical AI principles?')} className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-full">Ethics?</button>
-            </div>
-        </div>
-
-        {/* Chat Input Area */}
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center space-x-2">
-            <input 
-                type="text" 
-                placeholder="Type your question..." 
-                aria-label="Type your question for the chatbot"
-                className="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
-            />
-            <button 
-                onClick={handleChatSend}
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg shadow-md transition-colors"
-                aria-label="Send chat message"
-            >
-                <ArrowRight size={20}/>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-
 // Main App Component
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home'); // Default page
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // Effect to scroll to top when currentPage changes
   useEffect(() => {
@@ -1144,8 +993,7 @@ const App = () => {
         {renderPage()}
       </main>
       <Footer setCurrentPage={setCurrentPage} />
-      <AIChatbotButton onClick={() => setIsChatbotOpen(true)} />
-      <AIChatbotModal isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
+      <ArogyaAIChatbot />
     </div>
   );
 };

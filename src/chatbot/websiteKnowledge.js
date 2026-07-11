@@ -1,0 +1,118 @@
+/**
+ * Website knowledge base for RAG. Each chunk maps to a page/section on the site.
+ * Update this file when site content changes.
+ */
+export const WEBSITE_KNOWLEDGE = [
+  {
+    id: 'organization',
+    page: 'General',
+    title: 'About ArogyaAI Science Society',
+    keywords: ['who', 'what', 'organization', 'society', 'mission', 'about', 'founded'],
+    content: `ArogyaAI Science Society empowers computer science through innovation. Tagline: "Leveraging technology to create digital bridges rather than digital divides—building future innovators and problem solvers." Founded by Lalithendra Reddy Bhima and Bhavika Bhima. A student-led team teaching students from elementary through high school to explore, engage, compete, create, and have fun. Focus areas: AI, STEAM, cybersecurity, biotechnology, and research. Core values: innovation, education, collaboration, and impact.`,
+  },
+  {
+    id: 'navigation',
+    page: 'Navigation',
+    title: 'Site Pages & Navigation',
+    keywords: ['pages', 'navigate', 'menu', 'where', 'find', 'sections'],
+    content: `Website pages (use the top navigation menu): Home, About Us, Our Work, Get Involved, Ethical AI, Contact. Footer quick links: About Us, Our Work, Contact. Footer resources: Ethical AI Framework, Privacy Policy, Terms of Service. Footer newsletter signup available. The floating ArogyaAI Assistant button (bottom-right) opens this chatbot.`,
+  },
+  {
+    id: 'home-hero',
+    page: 'Home',
+    title: 'Home — Hero',
+    keywords: ['home', 'hero', 'main', 'welcome', 'tagline'],
+    content: `Home page hero headline: "Empowering Computer Science Through Innovation." Subtext: leveraging technology to create digital bridges rather than digital divides. Buttons: "Support Our Mission" (goes to Contact) and "See Our Work" (goes to Our Work page).`,
+  },
+  {
+    id: 'home-mission',
+    page: 'Home',
+    title: 'Home — Our Mission Pillars',
+    keywords: ['mission', 'pillars', 'innovation', 'education', 'digital bridges'],
+    content: `Mission: create digital bridges rather than digital divides through hands-on computer science education. Six pillars: (1) Innovation — AI, STEAM, cybersecurity, biotechnology, research. (2) Education — K–12 students explore, engage, compete, create, have fun. (3) Digital Bridges — connect communities, close the digital divide. (4) Future Innovators — build problem solvers. (5) Explore & Create — hands-on projects, competitions, collaborative learning. (6) Engage & Compete — real-world challenges and collaborative events.`,
+  },
+  {
+    id: 'home-impact',
+    page: 'Home',
+    title: 'Home — Impact at a Glance',
+    keywords: ['impact', 'stats', 'k-12', 'disciplines', 'focus areas'],
+    content: `Impact highlights: K–12 students across all grade levels; 5+ disciplines (AI, STEAM, Cybersecurity, Biotechnology & Research); hands-on project-based learning. Focus areas: AI & Research, STEAM & Biotechnology, Cybersecurity & Education.`,
+  },
+  {
+    id: 'home-projects',
+    page: 'Home',
+    title: 'Home — Featured Initiatives',
+    keywords: ['projects', 'initiatives', 'featured', 'innovation projects'],
+    content: `Featured initiative: "Innovation Projects" — hands-on projects making computer science and STEAM accessible for all ages. Tags: AI, STEAM, Education. Impact: helping students explore AI, build digital literacy, and develop problem-solving skills through collaborative, project-based learning. "Explore All Projects" links to Our Work page.`,
+  },
+  {
+    id: 'about-story',
+    page: 'About Us',
+    title: 'About — Our Story & Vision',
+    keywords: ['story', 'vision', 'history', 'founded', 'values'],
+    content: `Founded on the belief that CS education powered by AI, STEAM, cybersecurity, and biotechnology creates digital bridges. Vision: every student from elementary through high school can explore, engage, compete, create, and have fun with technology. Started as passionate students seeking accessible hands-on CS education. Now committed to research, student-centered teaching, and responsible innovation.`,
+  },
+  {
+    id: 'team-lalith',
+    page: 'About Us',
+    title: 'Team — Lalithendra Reddy Bhima',
+    keywords: ['lalith', 'lalithendra', 'founder', 'president', 'ai lead', 'team'],
+    content: `Lalithendra Reddy Bhima — Co-Founder, Co-President, AI and Computer Science Research Lead. 10th-grade student at Folsom High School. Mathematics, CS, and AI researcher. Second Prize NASA Space Apps Challenge (potential global nominee). Second Prize Congressional App Challenge for ArogyaAI. Research: ImmunoGenAI, LLM metacognition (ChatGPT), civicAI with Sacramento County. Aims to empower students through ethical, education-driven computer science.`,
+  },
+  {
+    id: 'team-bhavika',
+    page: 'About Us',
+    title: 'Team — Bhavika Bhima',
+    keywords: ['bhavika', 'founder', 'president', 'biotech', 'biotechnology', 'team'],
+    content: `Bhavika Bhima — Co-Founder, Co-President, Biotechnology Lead. 9th-grade student at Folsom High School. Second Prize NASA Space Apps Challenge (potential global nominee). Second Prize Congressional App Challenge. Research on coronary artery disease (CAD) and disease markers. Former NJHS Treasurer.`,
+  },
+  {
+    id: 'team-ananth',
+    page: 'About Us',
+    title: 'Team — Ananth Karthic',
+    keywords: ['ananth', 'vice president', 'cybersecurity', 'team'],
+    content: `Ananth Karthic — Vice-President & Cybersecurity Lead. 11th-grade student at Folsom High School. Regional Finalist Congressional App Challenge (EcoVera, Rep. Kevin Kiley). Builds Raspberry Pi network monitoring, Python learning apps, network forensics and ethical hacking research. TryHackMe and Cisco cybersecurity certified.`,
+  },
+  {
+    id: 'about-approach',
+    page: 'About Us',
+    title: 'About — Our Approach',
+    keywords: ['approach', 'teaching', 'methodology', 'explore', 'engage'],
+    content: `Three-part approach: (1) Explore & Innovate — hands-on AI, STEAM, cybersecurity, biotechnology, research. (2) Engage & Teach — inclusive K–12 learning. (3) Digital Bridges — connect communities, close the digital divide. See Ethical AI page for the ethical framework.`,
+  },
+  {
+    id: 'our-work',
+    page: 'Our Work',
+    title: 'Our Initiatives / Projects',
+    keywords: ['work', 'projects', 'initiatives', 'portfolio'],
+    content: `Our Work page lists initiatives applying AI, STEAM, cybersecurity, biotechnology, and research. Current project: Innovation Projects — CS/STEAM for all ages, tags AI/STEAM/Education. Search and filter by category. "Learn More" on projects goes to Contact page.`,
+  },
+  {
+    id: 'get-involved',
+    page: 'Get Involved',
+    title: 'Get Involved',
+    keywords: ['volunteer', 'partner', 'support', 'join', 'help', 'involved', 'donate'],
+    content: `Three ways to get involved (all link to Contact): (1) Volunteer Your Skills — CS educators, AI researchers, cybersecurity experts, mentors welcome. (2) Partner With Us — schools, organizations, institutions. (3) Help Support Our Cause — spread awareness, connect students/educators, create digital bridges in underserved communities, outreach and advocacy.`,
+  },
+  {
+    id: 'ethical-ai',
+    page: 'Ethical AI',
+    title: 'Ethical AI Framework',
+    keywords: ['ethics', 'ethical', 'ai', 'fairness', 'privacy', 'transparency', 'responsible'],
+    content: `Ethical AI commitment: fair, transparent, accountable technology that creates digital bridges. Six principles: Fairness & Non-Discrimination; Transparency & Explainability; Human Oversight & Accountability; Data Privacy & Security; Beneficence & Societal Impact; Community Engagement. Contact the ethics team via the Contact page for questions or collaboration.`,
+  },
+  {
+    id: 'contact',
+    page: 'Contact',
+    title: 'Contact Information',
+    keywords: ['contact', 'email', 'reach', 'message', 'instagram', 'social'],
+    content: `Contact page has a message form (name, email, subject, message). Email: arogyaaisciencesociety@gmail.com. Instagram: https://www.instagram.com/arogyaaisciencesociety/. Use Contact for questions, partnerships, volunteering, or learning more about our work.`,
+  },
+  {
+    id: 'footer',
+    page: 'Footer',
+    title: 'Footer & Newsletter',
+    keywords: ['newsletter', 'subscribe', 'footer', 'updates'],
+    content: `Footer description: empowering computer science through innovation, building future innovators from elementary through high school. Newsletter signup in footer for latest updates. Quick links and Ethical AI Framework in footer resources.`,
+  },
+];
