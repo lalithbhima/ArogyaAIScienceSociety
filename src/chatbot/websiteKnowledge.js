@@ -43,7 +43,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Home',
     title: 'Home — Featured Initiatives',
     keywords: ['projects', 'initiatives', 'featured', 'innovation projects'],
-    content: `Featured initiative: "ArogyaAI Science Society Summer Program" — we taught the core concepts of AI, cybersecurity, and biotechnology. Students made projects, presentations, and real labs; topics included CRISPR, cybersecurity hacks, machine learning, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. "Learn More" currently goes to Our Work / Contact (LinkedIn page coming later).`,
+    content: `Featured initiative: "ArogyaAI Science Society Summer Program" — we taught the core concepts of AI, cybersecurity, and biotechnology. Students made projects, presentations, and real labs; topics included CRISPR, cybersecurity hacks, machine learning, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. On Our Work, "Learn More" opens the LinkedIn post about the summer program.`,
   },
   {
     id: 'about-story',
@@ -85,7 +85,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Our Work',
     title: 'Our Initiatives / Projects',
     keywords: ['work', 'projects', 'initiatives', 'portfolio'],
-    content: `Our Work page lists initiatives applying AI, STEAM, cybersecurity, biotechnology, and research. Current project: ArogyaAI Science Society Summer Program — core concepts of AI, cybersecurity, and biotechnology; projects, presentations, and real labs covering CRISPR, cybersecurity hacks, ML, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. Search and filter by category. "Learn More" on projects goes to Contact page for now (LinkedIn coming later).`,
+    content: `Our Work page lists initiatives applying AI, STEAM, cybersecurity, biotechnology, and research. Current project: ArogyaAI Science Society Summer Program — core concepts of AI, cybersecurity, and biotechnology; projects, presentations, and real labs covering CRISPR, cybersecurity hacks, ML, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. Search and filter by category. "Learn More" on the summer program opens the LinkedIn post: https://www.linkedin.com/posts/artificialintelligence-cybersecurity-biotechnology-ugcPost-7485178790214615040-umAj/`,
   },
   {
     id: 'get-involved',

@@ -48,7 +48,7 @@ const MOCK_PROJECTS = [
     tags: ["AI", "Cybersecurity", "Biotechnology"],
     image: `${import.meta.env.BASE_URL}summerProgramLogo.png`,
     imageFit: "contain",
-    learnMoreLink: "/our-work/summer-program"
+    learnMoreLink: "https://www.linkedin.com/posts/artificialintelligence-cybersecurity-biotechnology-ugcPost-7485178790214615040-umAj/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFalxBkBg5gpe-S8oo7Iuwtb7EKD4Pa-Wh4"
   },
 ];
 
@@ -644,12 +644,14 @@ const OurWorkPage = ({ setCurrentPage }) => {
                       ))}
                     </div>
                     <p className="text-green-600 font-semibold text-sm mb-4">Impact Highlight: <span className="font-normal text-gray-700">{project.impact}</span></p>
-                    <button 
-                      onClick={() => setCurrentPage('contact')}
+                    <a
+                      href={project.learnMoreLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="mt-auto w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 transform hover:scale-105 flex items-center justify-center"
                     >
                       Learn More <ArrowRight className="ml-2 h-5 w-5" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               ))}
