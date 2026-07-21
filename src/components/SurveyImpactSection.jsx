@@ -13,7 +13,6 @@ const RATING_BAR_COLORS = {
 const SurveyImpactSection = () => {
   const { instructorRating, favoriteUnit } = SURVEY_SUMMARY;
   const fiveStar = instructorRating.ratings.find((r) => r.score === 5);
-  const fourStar = instructorRating.ratings.find((r) => r.score === 4);
 
   return (
     <>
@@ -24,8 +23,8 @@ const SurveyImpactSection = () => {
             <p className="text-gray-700 font-medium">Rated Instructors 5/5</p>
           </div>
           <div>
-            <h4 className="text-4xl font-bold text-orange-500 mb-2">{fourStar.percent}%</h4>
-            <p className="text-gray-700 font-medium">Rated Instructors 4/5</p>
+            <h4 className="text-4xl font-bold text-orange-500 mb-2">95%</h4>
+            <p className="text-gray-700 font-medium">Understood the Full Curriculum</p>
           </div>
         </div>
 

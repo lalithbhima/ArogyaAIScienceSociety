@@ -36,7 +36,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Home',
     title: 'Home — Impact at a Glance',
     keywords: ['impact', 'stats', 'k-12', 'disciplines', 'focus areas'],
-    content: `Impact highlights: K–12 students across all grade levels; 5+ disciplines (AI, STEAM, Cybersecurity, Biotechnology & Research); hands-on project-based learning. Focus areas: AI & Research, STEAM & Biotechnology, Cybersecurity & Education.`,
+    content: `Impact highlights: K–12 students across all grade levels; 5+ disciplines (AI, STEAM, Cybersecurity, Biotechnology & Research); hands-on project-based learning. Focus areas: AI & Research, STEAM & Biotechnology, Cybersecurity & Education. Summer program survey: 90% rated instructors 5/5; 95% understood the full curriculum.`,
   },
   {
     id: 'home-projects',
