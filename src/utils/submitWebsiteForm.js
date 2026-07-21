@@ -1,14 +1,14 @@
-/** Google Apps Script web app URL for newsletter + contact form submissions. */
-export const GOOGLE_FORM_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbyb01_UVyyLJk1vJgmMNPScz8Vp9mQ4vYwiOvHG4pTZykrq7j1KGr91b57_fhh16qjl/exec';
+import { APPS_SCRIPT_WEB_APP_URL } from '../config/appsScript.url.js';
+
+/** @deprecated Use APPS_SCRIPT_WEB_APP_URL from appsScript.url.js */
+export const GOOGLE_FORM_SCRIPT_URL = APPS_SCRIPT_WEB_APP_URL;
 
 /**
  * POST submission to Google Sheets + triggers email via Apps Script.
  * Uses text/plain (not application/json) so browser requests reach GAS reliably.
- * GAS returns CORS headers, so we can read whether the notification email was sent.
  */
 export async function submitWebsiteForm(payload) {
-  const response = await fetch(GOOGLE_FORM_SCRIPT_URL, {
+  const response = await fetch(APPS_SCRIPT_WEB_APP_URL, {
     method: 'POST',
     mode: 'cors',
     redirect: 'follow',
@@ -19,7 +19,6 @@ export async function submitWebsiteForm(payload) {
   try {
     return await response.json();
   } catch {
-    // Sheet save may still succeed even if the response body is unreadable.
     return { success: true, emailSent: null };
   }
 }

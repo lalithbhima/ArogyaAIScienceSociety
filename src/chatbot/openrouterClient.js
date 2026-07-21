@@ -1,17 +1,7 @@
-import {
-  OPENROUTER_API_KEY,
-  OPENROUTER_MODEL,
-  OPENROUTER_SITE_URL,
-  OPENROUTER_SITE_NAME,
-} from '../config/openrouter.key.js';
+import { APPS_SCRIPT_WEB_APP_URL } from '../config/appsScript.url.js';
+import { OPENROUTER_MODEL } from '../config/openrouter.js';
 import { buildRagContext } from './rag';
 import { formatChatResponse } from './formatChatResponse';
-
-const PLACEHOLDER_KEY = 'YOUR_OPENROUTER_API_KEY_HERE';
-
-export function isApiKeyConfigured() {
-  return Boolean(OPENROUTER_API_KEY && OPENROUTER_API_KEY !== PLACEHOLDER_KEY);
-}
 
 function buildSystemPrompt(ragContext) {
   return `You are the ArogyaAI Assistant, the official chatbot for ArogyaAI Science Society's website.
@@ -28,11 +18,13 @@ WEBSITE KNOWLEDGE (retrieved for this question):
 ${ragContext}`;
 }
 
+export function isChatAvailable() {
+  return Boolean(APPS_SCRIPT_WEB_APP_URL);
+}
+
 export async function sendChatMessage(userMessage, conversationHistory = []) {
-  if (!isApiKeyConfigured()) {
-    throw new Error(
-      'OpenRouter API key not configured. Add your key in src/config/openrouter.key.js'
-    );
+  if (!isChatAvailable()) {
+    throw new Error('Chat proxy URL is not configured.');
   }
 
   const ragContext = buildRagContext(userMessage);
@@ -46,33 +38,32 @@ export async function sendChatMessage(userMessage, conversationHistory = []) {
     { role: 'user', content: userMessage },
   ];
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const response = await fetch(APPS_SCRIPT_WEB_APP_URL, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': OPENROUTER_SITE_URL || (typeof window !== 'undefined' ? window.location.origin : ''),
-      'X-Title': OPENROUTER_SITE_NAME || 'ArogyaAI Science Society',
-    },
+    mode: 'cors',
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({
+      type: 'chat',
       model: OPENROUTER_MODEL,
       messages,
-      temperature: 0.4,
-      max_tokens: 600,
     }),
   });
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`OpenRouter error (${response.status}): ${errorBody}`);
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error('Could not read response from chat service.');
   }
 
-  const data = await response.json();
-  const reply = data?.choices?.[0]?.message?.content;
+  if (!data.success) {
+    throw new Error(data.error || 'Chat request failed.');
+  }
 
-  if (!reply) {
+  if (!data.reply) {
     throw new Error('No response received from the AI model.');
   }
 
-  return formatChatResponse(reply.trim());
+  return formatChatResponse(data.reply.trim());
 }

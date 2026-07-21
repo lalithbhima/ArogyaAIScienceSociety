@@ -7,13 +7,21 @@
  *
  * AFTER PASTING: Save → Deploy → Manage deployments → Edit → New version → Deploy
  * THEN RUN ONCE: authorizeAndTestEmail()  ← grants Gmail/Mail permission & sends test email
- *
- * Verify deploy: open Web app URL — should say "v4-email-active"
+ * OPENROUTER: paste your key in OPENROUTER_API_KEY near the top of this file (line ~20)
+ * THEN RUN ONCE: authorizeOpenRouterAccess()  ← grants UrlFetch permission for OpenRouter
+ * THEN RUN ONCE: testChatProxy()  ← verify chat works (check Execution log)
  */
 
-const SCRIPT_VERSION = 'v5-web-app-email';
+const SCRIPT_VERSION = 'v6-chat-proxy';
 const NOTIFY_EMAIL = 'arogyaaisciencesociety@gmail.com';
 const SITE_NAME = 'ArogyaAI Science Society Website';
+const OPENROUTER_MODEL = 'openrouter/free';
+const OPENROUTER_SITE_URL = 'https://arogyaai.org';
+const OPENROUTER_SITE_NAME = 'ArogyaAI Science Society';
+
+// Paste your OpenRouter API key here (Apps Script only — do NOT put this in the website repo).
+// Get a key at: https://openrouter.ai/keys
+const OPENROUTER_API_KEY = 'PASTE_YOUR_OPENROUTER_KEY_HERE';
 
 function formatTimestamp_(date) {
   const tz = Session.getScriptTimeZone() || 'America/Los_Angeles';
@@ -108,6 +116,75 @@ function parseBody_(e) {
   return JSON.parse(e.postData.contents);
 }
 
+function getOpenRouterApiKey_() {
+  if (OPENROUTER_API_KEY && OPENROUTER_API_KEY !== 'PASTE_YOUR_OPENROUTER_KEY_HERE') {
+    return OPENROUTER_API_KEY;
+  }
+  return PropertiesService.getScriptProperties().getProperty('OPENROUTER_API_KEY') || '';
+}
+
+function handleChat_(data) {
+  var apiKey = getOpenRouterApiKey_();
+  if (!apiKey) {
+    return json({
+      success: false,
+      error: 'OpenRouter API key not configured. Run storeOpenRouterApiKey() in Apps Script once.',
+    });
+  }
+
+  var messages = data.messages;
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    return json({ success: false, error: 'Missing chat messages' });
+  }
+
+  var payload = {
+    model: data.model || OPENROUTER_MODEL,
+    messages: messages,
+    temperature: 0.4,
+    max_tokens: 600,
+  };
+
+  var response = UrlFetchApp.fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      Authorization: 'Bearer ' + apiKey,
+      'HTTP-Referer': OPENROUTER_SITE_URL,
+      'X-Title': OPENROUTER_SITE_NAME,
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true,
+  });
+
+  var status = response.getResponseCode();
+  var body = response.getContentText();
+
+  if (status !== 200) {
+    var errorHint = '';
+    if (body.indexOf('script.external_request') !== -1 || body.indexOf('UrlFetchApp') !== -1) {
+      errorHint = ' Run authorizeOpenRouterAccess() in Apps Script and approve permissions.';
+    }
+    return json({
+      success: false,
+      error: 'OpenRouter error (' + status + '): ' + body + errorHint,
+    });
+  }
+
+  var parsed = JSON.parse(body);
+  var reply =
+    parsed &&
+    parsed.choices &&
+    parsed.choices[0] &&
+    parsed.choices[0].message &&
+    parsed.choices[0].message.content;
+
+  if (!reply) {
+    return json({ success: false, error: 'No response from AI model' });
+  }
+
+  return json({ success: true, reply: String(reply).trim(), version: SCRIPT_VERSION });
+}
+
 function doPost(e) {
   try {
     const data = parseBody_(e);
@@ -199,9 +276,21 @@ function doPost(e) {
       });
     }
 
+    if (data.type === 'chat') {
+      return handleChat_(data);
+    }
+
     return json({ success: false, error: 'Unknown form type' });
   } catch (err) {
-    return json({ success: false, error: err.toString(), version: SCRIPT_VERSION });
+    var errMsg = err.toString();
+    if (errMsg.indexOf('UrlFetchApp') !== -1 || errMsg.indexOf('external_request') !== -1) {
+      return json({
+        success: false,
+        error: errMsg + ' Run authorizeOpenRouterAccess() in Apps Script and approve permissions.',
+        version: SCRIPT_VERSION,
+      });
+    }
+    return json({ success: false, error: errMsg, version: SCRIPT_VERSION });
   }
 }
 
@@ -221,10 +310,13 @@ function doGet() {
 
   var execInfo = getExecutionInfo_();
 
+  var chatStatus = getOpenRouterApiKey_() ? ' OpenRouter: configured.' : ' OpenRouter: run storeOpenRouterApiKey().';
+
   return ContentService.createTextOutput(
     SCRIPT_VERSION +
       ' — ArogyaAI form handler is running.' +
       quota +
+      chatStatus +
       ' Deploy: Execute as Me | Anyone.' +
       ' Effective user: ' + execInfo.effectiveUser + '.'
   );
@@ -271,4 +363,64 @@ function testContactNotification() {
       }),
     },
   });
+}
+
+/**
+ * RUN ONCE: stores your OpenRouter API key securely in Script Properties.
+ * Opens a prompt — paste your key from https://openrouter.ai/keys
+ */
+function storeOpenRouterApiKey() {
+  var ui = SpreadsheetApp.getUi();
+  var response = ui.prompt(
+    'OpenRouter API Key',
+    'Paste your OpenRouter API key (starts with sk-or-v1-). It is stored securely and never sent to browsers.',
+    ui.ButtonSet.OK_CANCEL
+  );
+
+  if (response.getSelectedButton() !== ui.Button.OK) {
+    return;
+  }
+
+  var key = String(response.getResponseText() || '').trim();
+  if (!key || key.indexOf('sk-or-v1-') !== 0) {
+    throw new Error('Invalid OpenRouter API key. It should start with sk-or-v1-');
+  }
+
+  PropertiesService.getScriptProperties().setProperty('OPENROUTER_API_KEY', key);
+  ui.alert('OpenRouter API key saved. Redeploy the web app, then test the chatbot on your site.');
+}
+
+/**
+ * RUN ONCE after pasting your OpenRouter API key.
+ * Grants UrlFetchApp permission so the web app can call OpenRouter.
+ */
+function authorizeOpenRouterAccess() {
+  var apiKey = getOpenRouterApiKey_();
+  if (!apiKey) {
+    throw new Error('Paste your OpenRouter API key in OPENROUTER_API_KEY first, then run this again.');
+  }
+
+  var response = UrlFetchApp.fetch('https://openrouter.ai/api/v1/models', {
+    method: 'get',
+    headers: {
+      Authorization: 'Bearer ' + apiKey,
+    },
+    muteHttpExceptions: true,
+  });
+
+  Logger.log('OpenRouter connection test — HTTP ' + response.getResponseCode());
+  Logger.log('If you see 200 above, chat is authorized. Run testChatProxy() next.');
+}
+
+function testChatProxy() {
+  var result = handleChat_({
+    model: OPENROUTER_MODEL,
+    messages: [
+      {
+        role: 'user',
+        content: 'Reply with exactly: Chat proxy is working.',
+      },
+    ],
+  });
+  Logger.log(result.getContent());
 }

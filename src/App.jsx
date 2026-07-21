@@ -231,7 +231,7 @@ const Footer = ({ setCurrentPage }) => {
           <p>&copy; {new Date().getFullYear()} ArogyaAI Science Society. All rights reserved.</p>
           <p className="mt-1">Designed with <Heart className="inline h-4 w-4 text-red-500" /> for the next generation of innovators.</p>
           <p className="mt-2 text-gray-400 text-xs">
-            Founded by Lalithendra Reddy Bhima &amp; Bhavika Bhima
+            Founded by Lalithendra Reddy Bhima, Bhavika Bhima &amp; Ananth Karthic
           </p>
         </div>
       </Section>
@@ -520,7 +520,7 @@ const AboutUsPage = ({ setCurrentPage }) => {
                 Ananth Karthic
               </h3>
               <p className="text-[#06b6d4] font-medium mb-3">
-                Vice-President & Cybersecurity Lead
+                Co-Founder & Vice-President & Cybersecurity Lead
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Ananth Karthic is a 11th-grade student at Folsom High School and an emerging computer scientist 

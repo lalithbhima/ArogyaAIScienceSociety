@@ -8,7 +8,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'General',
     title: 'About ArogyaAI Science Society',
     keywords: ['who', 'what', 'organization', 'society', 'mission', 'about', 'founded'],
-    content: `ArogyaAI Science Society empowers computer science through innovation. Tagline: "Leveraging technology to create digital bridges rather than digital divides—building future innovators and problem solvers." Founded by Lalithendra Reddy Bhima and Bhavika Bhima. A student-led team teaching students from elementary through high school to explore, engage, compete, create, and have fun. Focus areas: AI, STEAM, cybersecurity, biotechnology, and research. Core values: innovation, education, collaboration, and impact.`,
+    content: `ArogyaAI Science Society empowers computer science through innovation. Tagline: "Leveraging technology to create digital bridges rather than digital divides—building future innovators and problem solvers." Founded by Lalithendra Reddy Bhima, Bhavika Bhima, and Ananth Karthic. A student-led team teaching students from elementary through high school to explore, engage, compete, create, and have fun. Focus areas: AI, STEAM, cybersecurity, biotechnology, and research. Core values: innovation, education, collaboration, and impact.`,
   },
   {
     id: 'navigation',
@@ -70,8 +70,8 @@ export const WEBSITE_KNOWLEDGE = [
     id: 'team-ananth',
     page: 'About Us',
     title: 'Team — Ananth Karthic',
-    keywords: ['ananth', 'vice president', 'cybersecurity', 'team'],
-    content: `Ananth Karthic — Vice-President & Cybersecurity Lead. 11th-grade student at Folsom High School. Regional Finalist Congressional App Challenge (EcoVera, Rep. Kevin Kiley). Builds Raspberry Pi network monitoring, Python learning apps, network forensics and ethical hacking research. TryHackMe and Cisco cybersecurity certified.`,
+    keywords: ['ananth', 'vice president', 'co-founder', 'founder', 'cybersecurity', 'team'],
+    content: `Ananth Karthic — Co-Founder & Vice-President & Cybersecurity Lead. 11th-grade student at Folsom High School. Regional Finalist Congressional App Challenge (EcoVera, Rep. Kevin Kiley). Builds Raspberry Pi network monitoring, Python learning apps, network forensics and ethical hacking research. TryHackMe and Cisco cybersecurity certified.`,
   },
   {
     id: 'about-approach',
@@ -113,6 +113,6 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Footer',
     title: 'Footer & Newsletter',
     keywords: ['newsletter', 'subscribe', 'footer', 'updates'],
-    content: `Footer description: empowering computer science through innovation, building future innovators from elementary through high school. Newsletter signup in footer for latest updates. Quick links and Ethical AI Framework in footer resources.`,
+    content: `Footer description: empowering computer science through innovation, building future innovators from elementary through high school. Newsletter signup in footer for latest updates. Quick links and Ethical AI Framework in footer resources. Footer credit: Founded by Lalithendra Reddy Bhima, Bhavika Bhima & Ananth Karthic.`,
   },
 ];

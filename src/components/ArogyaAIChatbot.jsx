@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Bot, X } from 'lucide-react';
-import { sendChatMessage, isApiKeyConfigured } from '../chatbot/openrouterClient';
+import { sendChatMessage, isChatAvailable } from '../chatbot/openrouterClient';
 
 const WELCOME_MESSAGE =
   "Hello! I'm the ArogyaAI Assistant. Ask me about our mission, team, projects, ethical AI, or how to get involved!";
@@ -44,12 +44,12 @@ const AIChatbotModal = ({ isOpen, onClose }) => {
     setChatInput('');
     setIsLoading(true);
 
-    if (!isApiKeyConfigured()) {
+    if (!isChatAvailable()) {
       setChatMessages([
         ...updatedMessages,
         {
           sender: 'bot',
-          text: 'The assistant is not configured yet. Please add your OpenRouter API key in src/config/openrouter.key.js (copy from openrouter.key.example.js if needed), then refresh the page.',
+          text: 'The assistant is not configured yet. Please contact the site administrator.',
         },
       ]);
       setIsLoading(false);
