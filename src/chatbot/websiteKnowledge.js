@@ -43,7 +43,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Home',
     title: 'Home — Featured Initiatives',
     keywords: ['projects', 'initiatives', 'featured', 'innovation projects'],
-    content: `Featured initiative: "Innovation Projects" — hands-on projects making computer science and STEAM accessible for all ages. Tags: AI, STEAM, Education. Impact: helping students explore AI, build digital literacy, and develop problem-solving skills through collaborative, project-based learning. "Explore All Projects" links to Our Work page.`,
+    content: `Featured initiative: "ArogyaAI Science Society Summer Program" — we taught the core concepts of AI, cybersecurity, and biotechnology. Students made projects, presentations, and real labs; topics included CRISPR, cybersecurity hacks, machine learning, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. "Learn More" currently goes to Our Work / Contact (LinkedIn page coming later).`,
   },
   {
     id: 'about-story',
@@ -85,7 +85,7 @@ export const WEBSITE_KNOWLEDGE = [
     page: 'Our Work',
     title: 'Our Initiatives / Projects',
     keywords: ['work', 'projects', 'initiatives', 'portfolio'],
-    content: `Our Work page lists initiatives applying AI, STEAM, cybersecurity, biotechnology, and research. Current project: Innovation Projects — CS/STEAM for all ages, tags AI/STEAM/Education. Search and filter by category. "Learn More" on projects goes to Contact page.`,
+    content: `Our Work page lists initiatives applying AI, STEAM, cybersecurity, biotechnology, and research. Current project: ArogyaAI Science Society Summer Program — core concepts of AI, cybersecurity, and biotechnology; projects, presentations, and real labs covering CRISPR, cybersecurity hacks, ML, CNNs, neural networks, NLP, AI agents, and LLMs. Tags: AI, Cybersecurity, Biotechnology. Search and filter by category. "Learn More" on projects goes to Contact page for now (LinkedIn coming later).`,
   },
   {
     id: 'get-involved',

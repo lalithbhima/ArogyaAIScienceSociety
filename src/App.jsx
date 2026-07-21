@@ -42,12 +42,13 @@ const RevealOnScroll = ({ children, className = '' }) => {
 const MOCK_PROJECTS = [
   {
     id: 1,
-    title: "Innovation Projects",
-    description: "Hands-on projects that make computer science and STEAM concepts accessible and engaging for students of all ages.",
-    impact: "Helping students explore AI, build digital literacy, and develop problem-solving skills through collaborative, project-based learning.",
-    tags: ["AI", "STEAM", "Education"],
-    image: "https://placehold.co/600x400/2ecc71/ffffff?text=Innovation+Projects",
-    learnMoreLink: "/our-work/project-2"
+    title: "ArogyaAI Science Society Summer Program",
+    description: "We taught the core concepts of AI, cybersecurity, and biotechnology.",
+    impact: "Students built projects, gave presentations, and completed real labs—exploring CRISPR, cybersecurity hacks, machine learning, CNNs, neural networks, NLP, AI agents, LLMs, and more.",
+    tags: ["AI", "Cybersecurity", "Biotechnology"],
+    image: `${import.meta.env.BASE_URL}summerProgramLogo.png`,
+    imageFit: "contain",
+    learnMoreLink: "/our-work/summer-program"
   },
 ];
 
@@ -338,12 +339,12 @@ const HomePage = ({ setCurrentPage }) => {
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-56 object-cover"
+                  className={`w-full h-56 ${project.imageFit === 'contain' ? 'object-contain bg-black' : 'object-cover'}`}
                   onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
                 />
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-                  <p className="text-gray-600 text-sm mb-3 flex-grow">{project.description.substring(0,100)}...</p>
+                  <p className="text-gray-600 text-sm mb-3 flex-grow">{project.description}</p>
                   <div className="mb-3">
                     {project.tags.map(tag => (
                       <span key={tag} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full mr-1 mb-1 inline-block">{tag}</span>
@@ -627,10 +628,12 @@ const OurWorkPage = ({ setCurrentPage }) => {
                       <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
+                        className={`w-full h-64 transform group-hover:scale-105 transition-transform duration-300 ${project.imageFit === 'contain' ? 'object-contain bg-black' : 'object-cover'}`}
                         onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x400/cccccc/ffffff?text=Image+Not+Found"; }}
                       />
-                      <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+                      {project.imageFit !== 'contain' && (
+                        <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+                      )}
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-2xl font-semibold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors duration-300">{project.title}</h3>
